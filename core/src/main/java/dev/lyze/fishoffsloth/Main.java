@@ -1,8 +1,9 @@
 package dev.lyze.fishoffsloth;
 
 import com.badlogic.gdx.Game;
+import lombok.CustomLog;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+@CustomLog
 public class Main extends Game {
 	@Override
 	public void create() {
