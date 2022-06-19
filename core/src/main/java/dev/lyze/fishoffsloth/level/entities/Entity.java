@@ -33,8 +33,8 @@ public class Entity {
     public void render(SpriteBatch batch) {
     }
 
-    public void debugRender(ShapeDrawer shapes) {
-        shapes.rectangle(position.x, position.y, width, height);
+    public void debugRender(ShapeDrawer drawer) {
+        drawer.rectangle(position.x, position.y, width, height);
     }
 
     public void addToWorld(World<Entity> world) {

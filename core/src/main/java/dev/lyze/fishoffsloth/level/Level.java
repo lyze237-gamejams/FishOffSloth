@@ -24,10 +24,8 @@ public class Level {
     private final SpriteBatch batch = new SpriteBatch();
     private final ShapeDrawer drawer = new ShapeDrawer(batch, PixmapUtils.createTexture(1, 1, Color.WHITE));
 
-    private final World<Entity> entityWorld = new World<>(4);
-
     @Getter
-    private final ArrayList<Entity> entities = new ArrayList<>();
+    private final EntityWorld entityWorld = new EntityWorld();
 
     private final com.badlogic.gdx.physics.box2d.World lightWorld = new com.badlogic.gdx.physics.box2d.World(new Vector2(0, 0), true);
     private final Box2DDebugRenderer box2DDebugRenderer = new Box2DDebugRenderer();
@@ -38,8 +36,7 @@ public class Level {
     }
 
     public void update(float delta) {
-        for (var entity : entities)
-            entity.update(entityWorld, delta);
+        entityWorld.update(delta);
 
         lightWorld.step(delta, 6, 2);
 
@@ -54,8 +51,7 @@ public class Level {
 
         batch.setColor(Color.WHITE);
         batch.begin();
-        for (var entity : entities)
-            entity.render(batch);
+        entityWorld.render(batch);
         batch.end();
 
         rayHandler.render();
@@ -64,8 +60,7 @@ public class Level {
 
         batch.setColor(Color.WHITE);
         batch.begin();
-        for (var entity : entities)
-            entity.debugRender(drawer);
+        entityWorld.debugRender(drawer);
         batch.end();
     }
 
