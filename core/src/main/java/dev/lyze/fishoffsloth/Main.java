@@ -1,14 +1,17 @@
 package dev.lyze.fishoffsloth;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Interpolation;
+import de.eskalon.commons.core.ManagedGame;
+import de.eskalon.commons.screen.ManagedScreen;
+import de.eskalon.commons.screen.transition.ScreenTransition;
+import de.eskalon.commons.screen.transition.impl.BlendingTransition;
+import de.eskalon.commons.screen.transition.impl.HorizontalSlicingTransition;
+import de.eskalon.commons.screen.transition.impl.SlidingDirection;
+import de.eskalon.commons.screen.transition.impl.SlidingOutTransition;
+import lombok.CustomLog;
 
-public class Main extends Game {
-	@Override
-	public void create() {
-		setScreen(new MainMenuScreen());
-	}
-}
-/*
 @CustomLog
 public class Main extends ManagedGame<ManagedScreen, ScreenTransition> {
 	private SpriteBatch batch;
@@ -26,6 +29,7 @@ public class Main extends ManagedGame<ManagedScreen, ScreenTransition> {
 		batch = new SpriteBatch();
 
 		screenManager.addScreen(MainMenuScreen.class.getName(), new MainMenuScreen());
+		screenManager.addScreen(EmptyScreen.class.getName(), new EmptyScreen());
 
 		screenManager.addScreenTransition(BlendingTransition.class.getName(), new BlendingTransition(batch, 1F, Interpolation.pow2In));
 		screenManager.addScreenTransition(SlidingOutTransition.class.getName(), new SlidingOutTransition(batch, SlidingDirection.DOWN, 0.35F));
@@ -44,4 +48,3 @@ public class Main extends ManagedGame<ManagedScreen, ScreenTransition> {
 		batch.getProjectionMatrix().setToOrtho2D(0, 0, width, height);
 	}
 }
-*/
