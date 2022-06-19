@@ -1,4 +1,4 @@
-package dev.lyze.fishoffsloth;
+package dev.lyze.fishoffsloth.screens;
 
 import java.util.ArrayList;
 

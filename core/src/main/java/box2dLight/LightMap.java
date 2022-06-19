@@ -110,10 +110,8 @@ class LightMap {
             fboWidth = 1;
         if (fboHeight <= 0)
             fboHeight = 1;
-        frameBuffer = new NestableFrameBuffer(Pixmap.Format.RGBA8888, fboWidth,
-                fboHeight, false);
-        pingPongBuffer = new NestableFrameBuffer(Pixmap.Format.RGBA8888, fboWidth,
-                fboHeight, false);
+        frameBuffer = new NestableFrameBuffer(Pixmap.Format.RGBA8888, fboWidth, fboHeight, false);
+        pingPongBuffer = new NestableFrameBuffer(Pixmap.Format.RGBA8888, fboWidth, fboHeight, false);
 
         lightMapMesh = createLightMapMesh();
 

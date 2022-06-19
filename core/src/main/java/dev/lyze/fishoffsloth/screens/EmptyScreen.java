@@ -1,4 +1,4 @@
-package dev.lyze.fishoffsloth;
+package dev.lyze.fishoffsloth.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.ScreenUtils;
 import de.eskalon.commons.core.ManagedGame;
 import de.eskalon.commons.screen.transition.impl.BlendingTransition;
+import dev.lyze.fishoffsloth.screens.MainMenuScreen;
 import dev.lyze.fishoffsloth.utils.ManagedScreenAdapter;
 
 public class EmptyScreen extends ManagedScreenAdapter  {

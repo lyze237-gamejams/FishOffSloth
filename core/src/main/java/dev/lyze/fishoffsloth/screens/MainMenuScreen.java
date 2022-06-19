@@ -1,9 +1,7 @@
-package dev.lyze.fishoffsloth;
+package dev.lyze.fishoffsloth.screens;
 
-import box2dLight.NestableRayHandler;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -20,7 +18,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.eskalon.commons.core.ManagedGame;
-import de.eskalon.commons.screen.transition.impl.BlendingTransition;
 import de.eskalon.commons.screen.transition.impl.HorizontalSlicingTransition;
 import dev.lyze.fishoffsloth.utils.ManagedScreenAdapter;
 import lombok.CustomLog;
@@ -47,7 +44,7 @@ public class MainMenuScreen extends ManagedScreenAdapter {
 		world = new World(new Vector2(0, 0), true);
 		box2DDebugRenderer = new Box2DDebugRenderer();
 
-		rayHandler = new NestableRayHandler(world);
+		rayHandler = new RayHandler(world);
 		rayHandler.setCulling(true);
 
 		var bodyDef = new BodyDef();
