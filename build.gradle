@@ -16,12 +16,21 @@ buildscript {
 
 apply from: 'utils.gradle'
 
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
+task texturePacker {
+	doLast {
+		TexturePacker.process("${project.rootDir}/sources", "${project.rootDir}/assets/atlases", "main")
+	}
+}
+
 configure(subprojects) {
 	apply plugin: 'java-library'
 	sourceCompatibility = 1.8
 	compileJava {
 		options.incremental = true
 	}
+
+	compileJava.dependsOn texturePacker
 }
 
 subprojects {

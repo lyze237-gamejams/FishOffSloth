@@ -1,13 +1,9 @@
 package dev.lyze.fishoffsloth.level;
 
-import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import dev.lyze.fishoffsloth.utils.PixmapUtils;
@@ -24,7 +20,19 @@ public class Level {
     @Getter private final EntityWorld entityWorld = new EntityWorld();
     @Getter private final LightWorld lightWorld = new LightWorld();
 
+    private final TextureAtlas atlas = new TextureAtlas("atlases/main.atlas");
+    private final Animation<TextureAtlas.AtlasRegion> sunnyIdle, lyzeIdle;
+
+    private float animationTime;
+
+    public Level() {
+        sunnyIdle = new Animation<>(0.15f, atlas.findRegions("players/sunny/idle"), Animation.PlayMode.LOOP_PINGPONG);
+        lyzeIdle = new Animation<>(0.15f, atlas.findRegions("players/lyze/idle"), Animation.PlayMode.LOOP_PINGPONG);
+    }
+
     public void update(float delta) {
+        animationTime += delta;
+
         entityWorld.update(delta);
         lightWorld.update(delta);
     }
@@ -36,6 +44,8 @@ public class Level {
 
         batch.setColor(Color.WHITE);
         batch.begin();
+        batch.draw(sunnyIdle.getKeyFrame(animationTime), 100, 100);
+        batch.draw(lyzeIdle.getKeyFrame(animationTime), 300, 100);
         entityWorld.render(batch);
         batch.end();
 
