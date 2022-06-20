@@ -1,11 +1,11 @@
 package dev.lyze.fishoffsloth.level;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import dev.lyze.fishoffsloth.map.Map;
 import dev.lyze.fishoffsloth.utils.PixmapUtils;
 import lombok.CustomLog;
 import lombok.Getter;
@@ -20,7 +20,11 @@ public class Level {
     @Getter private final EntityWorld entityWorld = new EntityWorld();
     @Getter private final LightWorld lightWorld = new LightWorld();
 
-    public Level() {
+    @Getter private final Map map;
+
+    public Level(TiledMap map) {
+        this.map = new Map(this, map);
+        this.map.initialize();
     }
 
     public void update(float delta) {
@@ -32,6 +36,8 @@ public class Level {
         viewport.apply();
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
+
+        map.render(viewport);
 
         batch.setColor(Color.WHITE);
         batch.begin();

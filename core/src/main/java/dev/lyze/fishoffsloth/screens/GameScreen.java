@@ -2,6 +2,7 @@ package dev.lyze.fishoffsloth.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.ScreenUtils;
 import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.utils.ManagedScreenAdapter;
@@ -23,7 +24,7 @@ public class GameScreen extends ManagedScreenAdapter {
     public void show() {
         super.show();
 
-        level = new Level();
+        level = new Level(new TmxMapLoader().load("maps/DevMap.tmx"));
         loop = new UpdateRenderLoop(this::update, this::render);
 
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
