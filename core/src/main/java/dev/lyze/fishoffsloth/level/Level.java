@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import dev.lyze.fishoffsloth.level.entities.PatrolEntity;
 import dev.lyze.fishoffsloth.map.Map;
 import dev.lyze.fishoffsloth.utils.PixmapUtils;
 import lombok.CustomLog;
@@ -25,6 +26,8 @@ public class Level {
     public Level(TiledMap map) {
         this.map = new Map(this, map);
         this.map.initialize();
+
+        this.entityWorld.addEntity(new PatrolEntity(180, 300, 75, 75, this));
     }
 
     public void update(float delta) {
