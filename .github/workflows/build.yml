@@ -1,0 +1,31 @@
+name: Build and upload
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - run: wget https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default -O butler.zip
+      - run: unzip butler.zip
+
+      - run: chmod +x butler && chmod +x gradlew
+
+      - run: ./gradlew lwjgl3:jar
+      - run: ./gradlew html:dist
+
+      - run: mv lwjgl3/build/libs/*.jar FishOffSloth.jar
+      - run: ./butler push html/build/dist lyze237/fish-off-sloth:html
+      - run: ./butler push FishOffSloth.jar lyze237/fish-off-sloth:jar
