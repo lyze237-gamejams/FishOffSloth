@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.jbump.Item;
 import com.dongbat.jbump.World;
+import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
 import lombok.Getter;
 import space.earlygrey.shapedrawer.ShapeDrawer;
@@ -27,7 +28,7 @@ public class Entity {
         this.height = height;
     }
 
-    public void update(World<Entity> world, float delta) {
+    public void update(EntityWorld world, float delta) {
     }
 
     public void render(SpriteBatch batch) {

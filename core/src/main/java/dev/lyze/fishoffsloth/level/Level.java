@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import dev.lyze.fishoffsloth.level.entities.PatrolEntity;
+import dev.lyze.fishoffsloth.level.players.Players;
 import dev.lyze.fishoffsloth.map.Map;
 import dev.lyze.fishoffsloth.utils.PixmapUtils;
 import lombok.CustomLog;
@@ -14,7 +14,7 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 
 @CustomLog
 public class Level {
-    private final Viewport viewport = new ExtendViewport(1920, 1080);
+    private final Viewport viewport = new ExtendViewport(1920, 1080, new GameCamera());
     private final SpriteBatch batch = new SpriteBatch();
     private final ShapeDrawer drawer = new ShapeDrawer(batch, PixmapUtils.createTexture(1, 1, Color.WHITE));
 
@@ -23,16 +23,28 @@ public class Level {
 
     @Getter private final Map map;
 
+    @Getter private final Players players;
+
     public Level(TiledMap map) {
         this.map = new Map(this, map);
+
+        this.players = new Players(this);
+
+        drawer.setDefaultLineWidth(4);
+    }
+
+    public void initialize() {
         this.map.initialize();
 
-        this.entityWorld.addEntity(new PatrolEntity(180, 300, 75, 75, this));
+        for (int i = 0; i < 100; i++)
+            ((GameCamera) viewport.getCamera()).update(players.getPlayer1().getPosition(), players.getPlayer2().getPosition(), map.getBoundaries(), 0.1f);
     }
 
     public void update(float delta) {
+        players.update(delta);
         entityWorld.update(delta);
         lightWorld.update(delta);
+        ((GameCamera) viewport.getCamera()).update(players.getPlayer1().getPosition(), players.getPlayer2().getPosition(), map.getBoundaries(), delta);
     }
 
     public void render() {
@@ -53,6 +65,7 @@ public class Level {
         batch.setColor(Color.WHITE);
         batch.begin();
         entityWorld.debugRender(drawer);
+        players.debugRender(drawer);
         batch.end();
     }
 

@@ -23,6 +23,7 @@ import lombok.var;
 @CustomLog
 public class Map {
     @Getter private final TiledMap map;
+    @Getter private Rectangle boundaries;
 
     private final Level level;
     private final OrthogonalTiledMapRenderer renderer;
@@ -37,6 +38,24 @@ public class Map {
     public void initialize() {
         parseCollision();
         parseLights();
+        setupBoundaries();
+    }
+
+    private void setupBoundaries() {
+        var boundariesLayer = map.getLayers().get("Boundaries");
+        var objects = boundariesLayer.getObjects();
+
+        if (objects.getCount() > 1) {
+            log.logInfo("Boundaries has multiple collision objects attached. Taking first only.");
+        }
+        else if (objects.getCount() == 0) {
+            log.logError("Boundaries has no collision objects attached.");
+            return;
+        }
+
+        boundaries = new Rectangle(((RectangleMapObject) objects.get(0)).getRectangle());
+        boundaries.setPosition(boundaries.getX(), boundaries.getY());
+        boundaries.setSize(boundaries.getWidth(), boundaries.getHeight());
     }
 
     private void parseLights() {

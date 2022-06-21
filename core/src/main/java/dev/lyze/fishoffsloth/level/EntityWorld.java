@@ -10,6 +10,7 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 import java.util.ArrayList;
 
 public class EntityWorld {
+    @Getter
     private final World<Entity> world = new World<>(4);
 
     @Getter
@@ -31,9 +32,7 @@ public class EntityWorld {
     }
 
     public void update(float delta) {
-        for (var entity : entities)
-            entity.update(world, delta);
-
+        entities.forEach(e -> e.update(this, delta));
 
         if (entitiesToAdd.size() > 0) {
             entities.addAll(entitiesToAdd);
@@ -48,12 +47,10 @@ public class EntityWorld {
     }
 
     public void render(SpriteBatch batch) {
-        for (var e : entities)
-            e.render(batch);
+        entities.forEach(e -> e.render(batch));
     }
 
     public void debugRender(ShapeDrawer drawer) {
-        for (var e : entities)
-            e.debugRender(drawer);
+        entities.forEach(e -> e.debugRender(drawer));
     }
 }

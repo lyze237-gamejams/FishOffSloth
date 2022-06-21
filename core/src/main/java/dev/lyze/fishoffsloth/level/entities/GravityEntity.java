@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.dongbat.jbump.Collision;
 import com.dongbat.jbump.CollisionFilter;
 import com.dongbat.jbump.Response;
-import com.dongbat.jbump.World;
+import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
 import lombok.CustomLog;
 import lombok.Getter;
@@ -13,8 +13,8 @@ import lombok.Setter;
 
 @CustomLog
 public class GravityEntity extends MovableEntity {
-    private final float gravity = 1.8f;
-    @Getter @Setter private float jumpForce = 0.8f;
+    private final float gravity = -16f;
+    @Getter @Setter private float jumpForce = 8f;
     @Getter @Setter private Animation<TextureAtlas.AtlasRegion> jump, fall;
 
     private final double jumpAfterGroundLeftMax = 150;
@@ -28,13 +28,13 @@ public class GravityEntity extends MovableEntity {
     }
 
     @Override
-    public void update(World<Entity> world, float delta) {
+    public void update(EntityWorld world, float delta) {
         checkJump();
         super.update(world, delta);
     }
 
     @Override
-    protected void beforeApplyVelocity(World<Entity> world, float delta) {
+    protected void beforeApplyVelocity(EntityWorld world, float delta) {
         applyGravity(delta);
     }
 

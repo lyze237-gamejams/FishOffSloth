@@ -5,15 +5,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.jbump.*;
+import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
-import dev.lyze.fishoffsloth.utils.MathUtils;
 import lombok.*;
 
 @CustomLog
 public class MovableEntity extends Entity {
-    private final float movementSpeedIncrease = 5f;
-    private final float maxSpeed = 30f;
-    private final float friction = 1000f;
+    private final float speed = 4f;
 
     protected final Vector2 velocity = new Vector2();
     protected final Vector2 inputVelocity = new Vector2();
@@ -47,7 +45,7 @@ public class MovableEntity extends Entity {
     }
 
     @Override
-    public void update(World<Entity> world, float delta) {
+    public void update(EntityWorld world, float delta) {
         super.update(world, delta);
 
         animationTime += delta;
@@ -77,7 +75,7 @@ public class MovableEntity extends Entity {
     }
 
     private void setInput() {
-        inputVelocity.set(wantsToMoveLeft > 0.2f ? -movementSpeedIncrease : wantsToMoveRight > 0.2f ? movementSpeedIncrease : 0, 0);
+        inputVelocity.set(wantsToMoveLeft > 0.2f ? -speed: wantsToMoveRight > 0.2f ? speed : 0, 0);
     }
 
     private void checkMovementDirection() {
@@ -95,22 +93,22 @@ public class MovableEntity extends Entity {
 
     private void applyInput(float delta) {
         if (inputVelocity.x > 0) {
-            velocity.x = MathUtils.approach(velocity.x, maxSpeed * wantsToMoveRight, inputVelocity.x * delta);
+            velocity.x = speed * wantsToMoveRight;
         } else if (inputVelocity.x < 0) {
-            velocity.x = MathUtils.approach(velocity.x, -maxSpeed * wantsToMoveLeft, inputVelocity.x * delta);
+            velocity.x = -speed * wantsToMoveLeft;
         }
     }
 
     private void applyFriction(float delta) {
         if (inputVelocity.x == 0)
-            velocity.x = MathUtils.approach(velocity.x, 0, friction * delta);
+            velocity.x = 0;
     }
 
-    private void checkCollisionsAndApplyVelocity(World<Entity> world, float delta) {
+    private void checkCollisionsAndApplyVelocity(EntityWorld world, float delta) {
         if (isDead)
             return;
 
-        var response = world.move(item, position.x + velocity.x, position.y + velocity.y, collisionFilter);
+        var response = world.getWorld().move(item, position.x + velocity.x, position.y + velocity.y, collisionFilter);
 
         for (int i = 0; i < response.projectedCollisions.size(); i++)
             onCollision(response.projectedCollisions.get(i));
@@ -128,8 +126,8 @@ public class MovableEntity extends Entity {
         }
     }
 
-    private void checkGround(World<Entity> world) {
-        world.project(item, position.x, position.y, width, height, position.x, position.y - 2f, getCollisionFilter(), getTempCollisions());
+    private void checkGround(EntityWorld world) {
+        world.getWorld().project(item, position.x, position.y, width, height, position.x, position.y - 10f, getCollisionFilter(), getTempCollisions());
         for (int i = 0; i < getTempCollisions().size(); i++) {
             if (getTempCollisions().get(i).type.equals(Response.slide)) {
                 if (!isGrounded)
@@ -168,5 +166,5 @@ public class MovableEntity extends Entity {
     protected void landed() {
     }
 
-    protected void beforeApplyVelocity(World<Entity> world, float delta) { }
+    protected void beforeApplyVelocity(EntityWorld world, float delta) { }
 }
