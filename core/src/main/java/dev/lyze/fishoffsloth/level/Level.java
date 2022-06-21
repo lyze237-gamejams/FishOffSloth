@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.github.tommyettinger.textra.Font;
 import dev.lyze.fishoffsloth.level.players.Players;
 import dev.lyze.fishoffsloth.map.Map;
 import dev.lyze.fishoffsloth.utils.PixmapUtils;
@@ -60,11 +59,15 @@ public class Level {
         batch.setColor(Color.WHITE);
         batch.begin();
         entityWorld.render(batch);
-        players.render(batch);
         batch.end();
 
         lightWorld.render(viewport);
         lightWorld.debugRender(viewport);
+
+        batch.setColor(Color.WHITE);
+        batch.begin();
+        players.render(batch);
+        batch.end();
 
         batch.setColor(Color.WHITE);
         batch.begin();

@@ -7,12 +7,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import lombok.Getter;
 import lombok.var;
 
 public class LightWorld {
     private final World lightWorld = new World(new Vector2(0, 0), true);
     private final Box2DDebugRenderer box2DDebugRenderer = new Box2DDebugRenderer();
     private final RayHandler rayHandler = new RayHandler(lightWorld);
+    @Getter private final LightWorldEntitySyncer syncer = new LightWorldEntitySyncer();
 
     public LightWorld() {
         rayHandler.setCulling(true);
@@ -43,6 +45,7 @@ public class LightWorld {
     }
 
     public void update(float delta) {
+        syncer.update(delta);
         lightWorld.step(delta, 1, 1);
         rayHandler.update();
     }
