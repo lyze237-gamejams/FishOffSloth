@@ -13,6 +13,7 @@ public class LyzePlayer extends Player {
 
         setRun(new Animation<>(0.15f, atlas.findRegions("players/lyze/move"), Animation.PlayMode.LOOP));
         setIdle(new Animation<>(0.2f, atlas.findRegions("players/lyze/idle"), Animation.PlayMode.LOOP));
+
         setAnimationXOffset(-75f);
 
         position.x = 500;

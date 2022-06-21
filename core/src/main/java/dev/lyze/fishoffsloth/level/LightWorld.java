@@ -18,7 +18,8 @@ public class LightWorld {
 
     public LightWorld() {
         rayHandler.setCulling(true);
-        rayHandler.setAmbientLight(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+        RayHandler.useDiffuseLight(true);
+        rayHandler.setAmbientLight(new Color(0.2f, 0.2f, 0.2f, 0.2f));
     }
 
     public Body createRectangle(float x, float y, float width, float height, BodyDef.BodyType type) {
