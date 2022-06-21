@@ -1,5 +1,6 @@
 package dev.lyze.fishoffsloth.level;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dongbat.jbump.World;
 import dev.lyze.fishoffsloth.level.entities.Entity;
@@ -50,7 +51,7 @@ public class EntityWorld {
         entities.forEach(e -> e.render(batch));
     }
 
-    public void debugRender(ShapeDrawer drawer) {
-        entities.forEach(e -> e.debugRender(drawer));
+    public void debugRender(ShapeDrawer drawer, BitmapFont font) {
+        entities.forEach(e -> e.debugRender(drawer, font));
     }
 }

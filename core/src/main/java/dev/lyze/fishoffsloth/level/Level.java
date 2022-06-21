@@ -1,10 +1,12 @@
 package dev.lyze.fishoffsloth.level;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.github.tommyettinger.textra.Font;
 import dev.lyze.fishoffsloth.level.players.Players;
 import dev.lyze.fishoffsloth.map.Map;
 import dev.lyze.fishoffsloth.utils.PixmapUtils;
@@ -17,6 +19,7 @@ public class Level {
     private final Viewport viewport = new ExtendViewport(1920, 1080, new GameCamera());
     private final SpriteBatch batch = new SpriteBatch();
     private final ShapeDrawer drawer = new ShapeDrawer(batch, PixmapUtils.createTexture(1, 1, Color.WHITE));
+    private final BitmapFont debugFont = new BitmapFont();
 
     @Getter private final EntityWorld entityWorld = new EntityWorld();
     @Getter private final LightWorld lightWorld = new LightWorld();
@@ -64,8 +67,8 @@ public class Level {
 
         batch.setColor(Color.WHITE);
         batch.begin();
-        entityWorld.debugRender(drawer);
-        players.debugRender(drawer);
+        entityWorld.debugRender(drawer, debugFont);
+        players.debugRender(drawer, debugFont);
         batch.end();
     }
 

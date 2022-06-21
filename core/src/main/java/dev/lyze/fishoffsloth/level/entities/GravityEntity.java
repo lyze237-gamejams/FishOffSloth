@@ -1,6 +1,7 @@
 package dev.lyze.fishoffsloth.level.entities;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.dongbat.jbump.Collision;
 import com.dongbat.jbump.CollisionFilter;
@@ -10,6 +11,7 @@ import dev.lyze.fishoffsloth.level.Level;
 import lombok.CustomLog;
 import lombok.Getter;
 import lombok.Setter;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 
 @CustomLog
 public class GravityEntity extends MovableEntity {
@@ -87,5 +89,12 @@ public class GravityEntity extends MovableEntity {
             setAnimation(getRun());
         else
             setAnimation(getIdle());
+    }
+
+    @Override
+    public void debugRender(ShapeDrawer drawer, BitmapFont font) {
+        super.debugRender(drawer, font);
+
+        font.draw(drawer.getBatch(), "Grounded: " + isGrounded(), position.x, position.y);
     }
 }

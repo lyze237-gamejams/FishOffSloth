@@ -1,5 +1,6 @@
 package dev.lyze.fishoffsloth.level.entities;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.jbump.Item;
@@ -34,7 +35,7 @@ public class Entity {
     public void render(SpriteBatch batch) {
     }
 
-    public void debugRender(ShapeDrawer drawer) {
+    public void debugRender(ShapeDrawer drawer, BitmapFont font) {
         drawer.rectangle(position.x, position.y, width, height);
     }
 

@@ -1,5 +1,6 @@
 package dev.lyze.fishoffsloth.level.players;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import dev.lyze.fishoffsloth.gamepads.VirtualGamepadGroup;
@@ -35,7 +36,7 @@ public class Players {
         players.forEach(p -> p.render(batch));
     }
 
-    public void debugRender(ShapeDrawer drawer) {
-        players.forEach(p -> p.debugRender(drawer));
+    public void debugRender(ShapeDrawer drawer, BitmapFont font) {
+        players.forEach(p -> p.debugRender(drawer, font));
     }
 }
