@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="98" height="24" tilewidth="75" tileheight="75" infinite="0" nextlayerid="5" nextobjectid="15">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="98" height="24" tilewidth="75" tileheight="75" infinite="0" nextlayerid="6" nextobjectid="22">
  <tileset firstgid="1" name="DevTiles" tilewidth="75" tileheight="75" tilecount="16" columns="4">
   <image source="DevTiles.png" width="300" height="300"/>
+ </tileset>
+ <tileset firstgid="17" name="Events" tilewidth="75" tileheight="75" tilecount="16" columns="4">
+  <image source="Events.png" width="300" height="300"/>
+  <tile id="0" type="PlayerSpawner">
+   <properties>
+    <property name="FirstPlayer" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="1" type="PlayerSpawner">
+   <properties>
+    <property name="FirstPlayer" type="bool" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer id="1" name="Tiles" width="98" height="24">
   <data encoding="base64">
@@ -24,6 +37,10 @@
    </properties>
    <point/>
   </object>
+ </objectgroup>
+ <objectgroup id="5" name="Events">
+  <object id="19" gid="17" x="225" y="1556.25" width="75" height="75"/>
+  <object id="21" gid="18" x="375" y="1556.25" width="75" height="75"/>
  </objectgroup>
  <objectgroup id="4" name="Boundaries" visible="0">
   <object id="8" x="0" y="0" width="7350" height="1800"/>

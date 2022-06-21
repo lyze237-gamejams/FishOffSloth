@@ -13,8 +13,5 @@ public class SunnyPlayer extends Player {
         setIdle(new Animation<>(0.2f, atlas.findRegions("players/sunny/idle"), Animation.PlayMode.LOOP));
 
         setAnimationXOffset(-60f);
-
-        position.x = 200;
-        position.y = 500;
     }
 }

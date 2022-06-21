@@ -1,19 +1,14 @@
 package dev.lyze.fishoffsloth.map;
 
-import box2dLight.PointLight;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
-import dev.lyze.fishoffsloth.level.LightWorld;
 import dev.lyze.fishoffsloth.level.entities.tiles.GroundTile;
 import dev.lyze.fishoffsloth.utils.OrthogonalTiledMapRendererBleeding;
 import lombok.CustomLog;
@@ -36,6 +31,7 @@ public class Map {
     }
 
     public void initialize() {
+        new MapSpawnersManager(level, this).initialize();
         parseCollision();
         parseLights();
         setupBoundaries();

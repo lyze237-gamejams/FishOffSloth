@@ -15,8 +15,5 @@ public class LyzePlayer extends Player {
         setIdle(new Animation<>(0.2f, atlas.findRegions("players/lyze/idle"), Animation.PlayMode.LOOP));
 
         setAnimationXOffset(-75f);
-
-        position.x = 500;
-        position.y = 500;
     }
 }
