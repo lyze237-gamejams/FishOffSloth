@@ -14,7 +14,7 @@ public class Player extends GravityEntity {
     @Setter private VirtualGamepadGroup gamepad;
 
     public Player(boolean firstPlayer, Level level) {
-        super(0, 0, 100, 225, level, CollisionFilter.defaultFilter);
+        super(0, 0, 75, 225, level, CollisionFilter.defaultFilter);
 
         this.firstPlayer = firstPlayer;
     }

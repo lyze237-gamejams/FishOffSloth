@@ -110,5 +110,6 @@ public class GravityEntity extends MovableEntity {
         super.debugRender(drawer, font);
 
         font.draw(drawer.getBatch(), "Grounded: " + isGrounded(), position.x, position.y);
+        font.draw(drawer.getBatch(), "Facing Right: " + isFacingRight(), position.x, position.y + 16);
     }
 }

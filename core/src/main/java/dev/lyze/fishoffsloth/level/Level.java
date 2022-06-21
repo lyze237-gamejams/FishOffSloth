@@ -60,6 +60,7 @@ public class Level {
         batch.setColor(Color.WHITE);
         batch.begin();
         entityWorld.render(batch);
+        players.render(batch);
         batch.end();
 
         lightWorld.render(viewport);

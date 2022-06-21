@@ -71,7 +71,12 @@ public class MovableEntity extends Entity {
             return;
 
         var frame = currentAnimation.getKeyFrame(animationTime);
-        batch.draw(frame, isFacingRight ? position.x + animationXOffset : position.x + width - animationXOffset, position.y);
+        var drawX = isFacingRight ? position.x + animationXOffset : position.x + width - animationXOffset;
+        var drawY = position.y;
+        var drawWidth = isFacingRight ? frame.getRegionWidth() : -frame.getRegionWidth();
+        var drawHeight = frame.getRegionHeight();
+
+        batch.draw(frame, drawX, drawY, drawWidth, drawHeight);
     }
 
     private void setInput() {
