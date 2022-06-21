@@ -16,12 +16,12 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 @CustomLog
 public class GravityEntity extends MovableEntity {
     private final float gravity = -16f;
-    @Getter @Setter private float jumpForce = 8f;
+    @Getter @Setter private float jumpForce = 8f, doubleJumpForce = 5f;
     @Getter @Setter private Animation<TextureAtlas.AtlasRegion> jump, fall;
 
     private final double jumpAfterGroundLeftMax = 150;
 
-    @Getter private boolean isJumping;
+    @Getter private boolean isJumping, isDoubleJumping;
 
     protected boolean wantsToJump;
 
@@ -43,8 +43,10 @@ public class GravityEntity extends MovableEntity {
     private void applyGravity(float delta) {
         velocity.y += gravity * delta;
 
-        if (isJumping && velocity.y < 0)
+        if (isJumping && velocity.y < 0) {
             isJumping = false;
+            isDoubleJumping = false;
+        }
     }
 
     private void checkJump() {
@@ -53,6 +55,18 @@ public class GravityEntity extends MovableEntity {
 
         if ((isGrounded() || (System.currentTimeMillis() - getLastGrounded()) < jumpAfterGroundLeftMax) && !isJumping)
             jump();
+
+        if (!isGrounded() && isJumping && !isDoubleJumping)
+            doubleJump();
+    }
+
+    protected void doubleJump() {
+        if (velocity.y < 0)
+            velocity.y = 0;
+
+        velocity.y += doubleJumpForce;
+        isJumping = true;
+        isDoubleJumping = true;
     }
 
     protected void jump() {
