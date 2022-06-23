@@ -1,5 +1,7 @@
 package dev.lyze.fishoffsloth;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import de.eskalon.commons.core.ManagedGame;
@@ -9,9 +11,7 @@ import de.eskalon.commons.screen.transition.impl.BlendingTransition;
 import de.eskalon.commons.screen.transition.impl.HorizontalSlicingTransition;
 import de.eskalon.commons.screen.transition.impl.SlidingDirection;
 import de.eskalon.commons.screen.transition.impl.SlidingOutTransition;
-import dev.lyze.fishoffsloth.screens.EmptyScreen;
 import dev.lyze.fishoffsloth.screens.GameScreen;
-import dev.lyze.fishoffsloth.screens.MainMenuScreen;
 import lombok.CustomLog;
 
 @CustomLog
@@ -25,6 +25,14 @@ public class Main extends ManagedGame<ManagedScreen, ScreenTransition> {
 		log.logInfo("Hello World!");
 
 		setupScreens();
+	}
+
+	@Override
+	public void render() {
+		super.render();
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.F10))
+			Statics.debug = !Statics.debug;
 	}
 
 	private void setupScreens() {
