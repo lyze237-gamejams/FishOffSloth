@@ -71,7 +71,7 @@ public class MapSpawnersManager {
         }
     }
 
-    private void initializeMapProperties(TiledMapTileMapObject tile, MapProperties instance, Field field) {
+    private void initializeMapProperties(TiledMapTileMapObject tile, MapSpawnerProperties instance, Field field) {
         field.setAccessible(true);
 
         tile.getProperties().getKeys().forEachRemaining(k -> {

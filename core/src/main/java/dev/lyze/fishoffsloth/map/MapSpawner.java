@@ -3,7 +3,7 @@ package dev.lyze.fishoffsloth.map;
 import dev.lyze.fishoffsloth.level.Level;
 import lombok.Getter;
 
-public abstract class MapSpawner<TProperties extends MapProperties> {
+public abstract class MapSpawner<TProperties extends MapSpawnerProperties> {
     protected final Level level;
     protected final Map map;
 
@@ -15,7 +15,7 @@ public abstract class MapSpawner<TProperties extends MapProperties> {
         this.propertiesClass = propertiesClass;
     }
 
-    public void spawn(float x, float y, MapProperties data) {
+    public void spawn(float x, float y, MapSpawnerProperties data) {
         spawnInternal(x, y, (TProperties) data);
     }
 

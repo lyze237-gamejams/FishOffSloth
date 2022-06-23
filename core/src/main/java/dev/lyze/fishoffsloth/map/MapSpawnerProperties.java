@@ -5,6 +5,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public abstract class MapProperties {
+public abstract class MapSpawnerProperties {
     public String type;
 }

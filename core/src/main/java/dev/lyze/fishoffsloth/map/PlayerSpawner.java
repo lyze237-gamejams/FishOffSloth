@@ -1,12 +1,9 @@
 package dev.lyze.fishoffsloth.map;
 
-import com.badlogic.gdx.math.GridPoint2;
 import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.map.properties.PlayerSpawnerProperties;
 import lombok.CustomLog;
 import lombok.var;
-
-import java.util.HashMap;
 
 @CustomLog
 public class PlayerSpawner extends MapSpawner<PlayerSpawnerProperties> {
