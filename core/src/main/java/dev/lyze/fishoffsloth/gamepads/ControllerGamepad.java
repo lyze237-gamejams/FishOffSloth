@@ -29,6 +29,7 @@ public class ControllerGamepad extends VirtualGamepad {
 
         leftPressed = controller.getAxis(mapping.axisLeftX) < 0 ? Math.abs(controller.getAxis(mapping.axisLeftX)) : 0;
         rightPressed = controller.getAxis(mapping.axisLeftX) > 0 ? Math.abs(controller.getAxis(mapping.axisLeftX)) : 0;
+        shootPressed = controller.getButton(mapping.buttonR2) || controller.getButton(mapping.buttonR1);
     }
 
     @Override

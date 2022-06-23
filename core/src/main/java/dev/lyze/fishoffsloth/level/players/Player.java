@@ -4,11 +4,11 @@ import dev.lyze.fishoffsloth.gamepads.VirtualGamepadGroup;
 import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.level.collisionFilters.PlayerCollisionFilter;
-import dev.lyze.fishoffsloth.level.entities.GravityEntity;
+import dev.lyze.fishoffsloth.level.entities.ShooterEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Player extends GravityEntity {
+public class Player extends ShooterEntity {
     @Getter private final boolean firstPlayer;
 
     @Setter private VirtualGamepadGroup gamepad;
@@ -30,5 +30,7 @@ public class Player extends GravityEntity {
         wantsToMoveRight = gamepad.getRightPressed();
 
         wantsToJump = gamepad.isJumpJustPressed();
+
+        wantsToShoot = gamepad.isShootPressed();
     }
 }

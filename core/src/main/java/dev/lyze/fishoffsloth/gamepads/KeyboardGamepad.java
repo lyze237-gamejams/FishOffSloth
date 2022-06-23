@@ -15,6 +15,7 @@ public class KeyboardGamepad extends VirtualGamepad {
     public void update(float delta) {
         leftPressed = Gdx.input.isKeyPressed(player.isFirstPlayer() ? Input.Keys.A : Input.Keys.LEFT) ? 1 : 0;
         rightPressed = Gdx.input.isKeyPressed(player.isFirstPlayer() ? Input.Keys.D : Input.Keys.RIGHT) ? 1 : 0;
+        shootPressed = Gdx.input.isKeyPressed(player.isFirstPlayer() ? Input.Keys.SHIFT_LEFT : Input.Keys.SHIFT_RIGHT);
         if (!jumpHeld)
             if (jumpJustPressed = Gdx.input.isKeyPressed(player.isFirstPlayer() ? Input.Keys.W : Input.Keys.UP))
                 jumpHeld = true;

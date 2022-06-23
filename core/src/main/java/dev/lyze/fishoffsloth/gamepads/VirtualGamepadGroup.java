@@ -11,6 +11,7 @@ public class VirtualGamepadGroup {
     @Getter protected float leftPressed;
     @Getter protected float rightPressed;
     @Getter protected boolean jumpJustPressed;
+    @Getter protected boolean shootPressed;
 
     public VirtualGamepadGroup(Player player, int playerNumber) {
         gamepads.add(new KeyboardGamepad(player, playerNumber));
@@ -24,6 +25,7 @@ public class VirtualGamepadGroup {
         leftPressed = 0;
         rightPressed = 0;
         jumpJustPressed = false;
+        shootPressed = false;
 
         for (VirtualGamepad g : gamepads) {
             g.update(delta);
@@ -31,6 +33,7 @@ public class VirtualGamepadGroup {
             leftPressed = Math.max(leftPressed, g.leftPressed);
             rightPressed = Math.max(rightPressed, g.rightPressed);
             jumpJustPressed |= g.jumpJustPressed;
+            shootPressed |= g.shootPressed;
         }
     }
 

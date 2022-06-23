@@ -11,7 +11,7 @@ import lombok.*;
 
 @CustomLog
 public class MovableEntity extends Entity {
-    private final float speed = 4f;
+    @Getter @Setter private float speed = 4f;
 
     protected final Vector2 velocity = new Vector2();
     protected final Vector2 inputVelocity = new Vector2();

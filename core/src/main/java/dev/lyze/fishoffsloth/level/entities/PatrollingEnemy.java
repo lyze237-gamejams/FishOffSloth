@@ -37,10 +37,6 @@ public class PatrollingEnemy extends GravityEntity {
         super.update(world, delta);
     }
 
-    private void switchDirection(PatrolDirectionChangeTile change) {
-
-    }
-
     private PatrolDirectionChangeTile getPatrolBlockOnMe(EntityWorld world) {
         world.getWorld().project(item, position.x, position.y, width, height, position.x, position.y - 20f, CollisionFilter.defaultFilter, getTempCollisions());
 

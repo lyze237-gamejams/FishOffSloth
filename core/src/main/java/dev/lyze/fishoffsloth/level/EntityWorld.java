@@ -32,6 +32,10 @@ public class EntityWorld {
         entity.addToWorld(world);
     }
 
+    public void removeEntity(Entity entity) {
+        entitiesToRemove.add(entity);
+    }
+
     public void update(float delta) {
         entities.forEach(e -> e.update(this, delta));
 

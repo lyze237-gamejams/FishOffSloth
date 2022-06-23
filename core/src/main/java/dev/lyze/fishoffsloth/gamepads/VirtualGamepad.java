@@ -15,6 +15,8 @@ public abstract class VirtualGamepad {
     protected float rightPressed;
     @Getter
     protected boolean jumpJustPressed;
+    @Getter
+    protected boolean shootPressed;
 
     public VirtualGamepad(Player player, int playerNumber) {
         this.player = player;
