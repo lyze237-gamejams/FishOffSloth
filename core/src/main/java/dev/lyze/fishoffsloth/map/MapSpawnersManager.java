@@ -60,7 +60,7 @@ public class MapSpawnersManager {
 
     private void doEvent(TiledMapTileMapObject tile, MapSpawner<?> spawner) {
         try {
-            var instance = ClassReflection.newInstance(spawner.getPropertiesClass());
+            MapSpawnerProperties instance = ClassReflection.newInstance(spawner.getPropertiesClass());
 
             for (var field : ClassReflection.getDeclaredFields(spawner.getPropertiesClass()))
                 initializeMapProperties(tile, instance, field);
