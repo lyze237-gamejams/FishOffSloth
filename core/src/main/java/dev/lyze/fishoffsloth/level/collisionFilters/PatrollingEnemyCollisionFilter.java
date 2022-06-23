@@ -1,0 +1,22 @@
+package dev.lyze.fishoffsloth.level.collisionFilters;
+
+import com.dongbat.jbump.CollisionFilter;
+import com.dongbat.jbump.Item;
+import com.dongbat.jbump.Response;
+import dev.lyze.fishoffsloth.level.entities.tiles.Tile;
+import dev.lyze.fishoffsloth.level.players.Player;
+
+public class PatrollingEnemyCollisionFilter implements CollisionFilter {
+    public static final PatrollingEnemyCollisionFilter instance = new PatrollingEnemyCollisionFilter();
+
+    @Override
+    public Response filter(Item item, Item other) {
+        if (other.userData instanceof Player)
+            return null;
+
+        if (other.userData instanceof Tile && !((Tile) other.userData).isHitbox())
+            return Response.cross;
+
+        return Response.slide;
+    }
+}

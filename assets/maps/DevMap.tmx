@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="98" height="24" tilewidth="75" tileheight="75" infinite="0" nextlayerid="6" nextobjectid="22">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="98" height="24" tilewidth="75" tileheight="75" infinite="0" nextlayerid="6" nextobjectid="25">
  <tileset firstgid="1" name="DevTiles" tilewidth="75" tileheight="75" tilecount="16" columns="4">
   <image source="DevTiles.png" width="300" height="300"/>
  </tileset>
@@ -13,6 +13,21 @@
   <tile id="1" type="PlayerSpawner">
    <properties>
     <property name="FirstPlayer" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4" type="PatrollingEnemySpawner">
+   <properties>
+    <property name="Direction" value="Left"/>
+   </properties>
+  </tile>
+  <tile id="5" type="PatrolDirectionChangeSpawner">
+   <properties>
+    <property name="Direction" value="Right"/>
+   </properties>
+  </tile>
+  <tile id="6" type="PatrolDirectionChangeSpawner">
+   <properties>
+    <property name="Direction" value="Left"/>
    </properties>
   </tile>
  </tileset>
@@ -41,6 +56,9 @@
  <objectgroup id="5" name="Events">
   <object id="19" gid="17" x="225" y="1556.25" width="75" height="75"/>
   <object id="21" gid="18" x="375" y="1556.25" width="75" height="75"/>
+  <object id="22" gid="21" x="1800" y="1256.25" width="75" height="75"/>
+  <object id="23" gid="22" x="1425" y="1275" width="75" height="75"/>
+  <object id="24" gid="23" x="2250" y="1275" width="75" height="75"/>
  </objectgroup>
  <objectgroup id="4" name="Boundaries" visible="0">
   <object id="8" x="0" y="0" width="7350" height="1800"/>

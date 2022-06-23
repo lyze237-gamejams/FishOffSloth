@@ -1,9 +1,9 @@
 package dev.lyze.fishoffsloth.level.players;
 
-import com.dongbat.jbump.CollisionFilter;
 import dev.lyze.fishoffsloth.gamepads.VirtualGamepadGroup;
 import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
+import dev.lyze.fishoffsloth.level.collisionFilters.PlayerCollisionFilter;
 import dev.lyze.fishoffsloth.level.entities.GravityEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,7 @@ public class Player extends GravityEntity {
     @Setter private VirtualGamepadGroup gamepad;
 
     public Player(boolean firstPlayer, Level level) {
-        super(0, 0, 75, 200, level, CollisionFilter.defaultFilter);
+        super(0, 0, 75, 200, level, PlayerCollisionFilter.instance);
 
         this.firstPlayer = firstPlayer;
     }
