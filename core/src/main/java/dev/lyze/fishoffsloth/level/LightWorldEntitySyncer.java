@@ -3,7 +3,6 @@ package dev.lyze.fishoffsloth.level;
 import box2dLight.Light;
 import com.badlogic.gdx.utils.Array;
 import dev.lyze.fishoffsloth.level.entities.Entity;
-import lombok.var;
 
 public class LightWorldEntitySyncer {
     private final Array<Entry> entries = new Array<>();
@@ -21,10 +20,10 @@ public class LightWorldEntitySyncer {
     }
 
     public void removeEntity(Entity entity) {
-        var iterator = entries.iterator();
+        Array.ArrayIterator<Entry> iterator = entries.iterator();
 
         while (iterator.hasNext()) {
-            var entry = iterator.next();
+            Entry entry = iterator.next();
             if (entry.entity == entity) {
                 iterator.remove();
                 entry.light.remove(true);
