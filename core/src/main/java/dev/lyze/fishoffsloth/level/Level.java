@@ -1,5 +1,6 @@
 package dev.lyze.fishoffsloth.level;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -73,6 +74,7 @@ public class Level {
         if (Statics.debug) {
             batch.setColor(Color.WHITE);
             batch.begin();
+            debugFont.draw(batch, "Fps: " + Gdx.graphics.getFramesPerSecond(), 16, 16);
             entityWorld.debugRender(drawer, debugFont);
             players.debugRender(drawer, debugFont);
             batch.end();

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class EntityWorld {
     @Getter
-    private final World<Entity> world = new World<>(4);
+    private final World<Entity> world = new World<>(400);
 
     @Getter
     private final ArrayList<Entity> entities = new ArrayList<>();

@@ -31,7 +31,7 @@ public class Main extends ManagedGame<ManagedScreen, ScreenTransition> {
 	public void render() {
 		super.render();
 
-		if (Gdx.input.isKeyJustPressed(Input.Keys.F10))
+		if (Gdx.input.isKeyJustPressed(Input.Keys.F9))
 			Statics.debug = !Statics.debug;
 	}
 
