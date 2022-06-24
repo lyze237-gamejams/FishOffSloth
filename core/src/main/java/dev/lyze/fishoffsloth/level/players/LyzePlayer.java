@@ -26,5 +26,6 @@ public class LyzePlayer extends Player {
         setFall(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/lyze/jump"), Animation.PlayMode.LOOP));
 
         setAnimationXOffset(-75f);
+        setAnimationYOffset(-10f);
     }
 }
