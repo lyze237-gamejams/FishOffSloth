@@ -12,7 +12,7 @@ public class SunnyPlayer extends Player {
                 .animation(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/sunny/bullet"), Animation.PlayMode.LOOP))
                 .width(70).height(55)
                 .lightColor(new Color(1, 1, 1, 0.4f))
-                .offsetX(10).offsetY(70)
+                .offsetX(10).offsetY(65)
                 .travelDistance(700)
                 .timeBetweenShots(100)
                 .lightDistance(50)
