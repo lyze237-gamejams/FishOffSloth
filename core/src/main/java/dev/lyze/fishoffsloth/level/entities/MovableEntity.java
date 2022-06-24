@@ -29,7 +29,7 @@ public class MovableEntity extends Entity {
     private Animation<TextureAtlas.AtlasRegion> currentAnimation;
 
     @Getter @Setter(AccessLevel.PROTECTED)
-    private float animationXOffset;
+    private float animationXOffset, animationYOffset;
 
     private float animationTime;
 
@@ -72,7 +72,7 @@ public class MovableEntity extends Entity {
 
         var frame = currentAnimation.getKeyFrame(animationTime);
         var drawX = isFacingRight ? position.x + animationXOffset : position.x + width - animationXOffset;
-        var drawY = position.y;
+        var drawY = position.y + animationYOffset;
         var drawWidth = isFacingRight ? frame.getRegionWidth() : -frame.getRegionWidth();
         var drawHeight = frame.getRegionHeight();
 

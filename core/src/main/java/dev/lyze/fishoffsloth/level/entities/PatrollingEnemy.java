@@ -1,20 +1,40 @@
 package dev.lyze.fishoffsloth.level.entities;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.dongbat.jbump.CollisionFilter;
+import dev.lyze.fishoffsloth.Statics;
 import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.level.collisionFilters.PatrollingEnemyCollisionFilter;
 import dev.lyze.fishoffsloth.level.entities.tiles.PatrolDirectionChangeTile;
 import dev.lyze.fishoffsloth.utils.Direction;
+import dev.lyze.fishoffsloth.utils.Sloth;
 import lombok.var;
 
 public class PatrollingEnemy extends GravityEntity {
     private Direction direction;
 
-    public PatrollingEnemy(float x, float y, Direction direction, Level level) {
+    public PatrollingEnemy(float x, float y, Direction direction, Sloth sloth, Level level) {
         super(x, y, 75, 200, level, PatrollingEnemyCollisionFilter.instance);
         
         this.direction = direction;
+
+        Animation<TextureAtlas.AtlasRegion> animation = null;
+        switch (sloth) {
+            case Clogg:
+                animation = new Animation<>(0.15f, Statics.mainAtlas.findRegions("enemies/clogg/move"), Animation.PlayMode.LOOP);
+                break;
+            case Beauty:
+                animation = new Animation<>(0.15f, Statics.mainAtlas.findRegions("enemies/beauty/move"), Animation.PlayMode.LOOP);
+                break;
+        }
+
+        setIdle(animation);
+        setRun(animation);
+
+        setAnimationXOffset(-20);
+        setAnimationYOffset(-10f);
     }
 
     @Override

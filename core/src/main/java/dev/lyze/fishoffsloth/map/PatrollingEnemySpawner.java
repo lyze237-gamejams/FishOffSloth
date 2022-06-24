@@ -15,6 +15,6 @@ public class PatrollingEnemySpawner extends MapSpawner<PatrollingEnemySpawnerPro
     protected void spawnInternal(float x, float y, PatrollingEnemySpawnerProperties data) {
         log.logInfo("Spawning patrolling enemy at " + x + " / " + y);
 
-        level.getEntityWorld().addEntity(new PatrollingEnemy(x, y, data.getDirection(), level));
+        level.getEntityWorld().addEntity(new PatrollingEnemy(x, y, data.getDirection(), data.getSloth(), level));
     }
 }
