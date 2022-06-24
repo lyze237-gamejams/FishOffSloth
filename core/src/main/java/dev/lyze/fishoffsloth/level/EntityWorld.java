@@ -1,5 +1,6 @@
 package dev.lyze.fishoffsloth.level;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dongbat.jbump.World;
@@ -56,6 +57,9 @@ public class EntityWorld {
     }
 
     public void debugRender(ShapeDrawer drawer, BitmapFont font) {
-        entities.forEach(e -> e.debugRender(drawer, font));
+        for (Entity e : entities) {
+            drawer.setColor(Color.WHITE);
+            e.debugRender(drawer, font);
+        }
     }
 }

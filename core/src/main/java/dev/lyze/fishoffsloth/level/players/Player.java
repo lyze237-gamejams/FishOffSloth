@@ -5,6 +5,7 @@ import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.level.collisionFilters.PlayerCollisionFilter;
 import dev.lyze.fishoffsloth.level.entities.ShooterEntity;
+import dev.lyze.fishoffsloth.level.entities.data.BulletData;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,8 +14,8 @@ public class Player extends ShooterEntity {
 
     @Setter private VirtualGamepadGroup gamepad;
 
-    public Player(boolean firstPlayer, Level level) {
-        super(0, 0, 75, 200, level, PlayerCollisionFilter.instance);
+    public Player(boolean firstPlayer, BulletData data, Level level) {
+        super(0, 0, 75, 200, data, level, PlayerCollisionFilter.instance);
 
         this.firstPlayer = firstPlayer;
     }

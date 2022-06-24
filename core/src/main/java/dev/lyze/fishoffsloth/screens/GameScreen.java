@@ -41,7 +41,7 @@ public class GameScreen extends ManagedScreenAdapter {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(Color.TEAL);
+        ScreenUtils.clear(Color.WHITE);
         gamepads.forEach(g -> g.update(delta));
         loop.updateAndRender();
     }

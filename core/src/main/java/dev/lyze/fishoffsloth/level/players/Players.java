@@ -24,7 +24,7 @@ public class Players {
 
         players.forEach(p -> p.addToWorld(level.getEntityWorld().getWorld()));
 
-        players.forEach(p -> level.getLightWorld().getSyncer().addEntity(p, level.getLightWorld().createPointLight(0, 0, Color.WHITE, 300, 32), p.getWidth() / 2f, p.getHeight() / 2f));
+        players.forEach(p -> level.getLightWorld().getSyncer().addEntity(p, level.getLightWorld().createPointLight(0, 0, new Color(1, 1, 1, 0.3f), 300, 32), p.getWidth() / 2f, p.getHeight() / 2f));
     }
 
     public void update(float delta) {

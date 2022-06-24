@@ -3,9 +3,10 @@ package dev.lyze.fishoffsloth.level;
 import box2dLight.Light;
 import com.badlogic.gdx.utils.Array;
 import dev.lyze.fishoffsloth.level.entities.Entity;
+import lombok.var;
 
 public class LightWorldEntitySyncer {
-    private Array<Entry> entries = new Array<>();
+    private final Array<Entry> entries = new Array<>();
 
     public LightWorldEntitySyncer() {
 
@@ -17,6 +18,19 @@ public class LightWorldEntitySyncer {
 
     public void update(float delta) {
         entries.forEach(e -> e.light.setPosition(e.entity.getPosition().x + e.offsetX, e.entity.getPosition().y + e.offsetY));
+    }
+
+    public void removeEntity(Entity entity) {
+        var iterator = entries.iterator();
+
+        while (iterator.hasNext()) {
+            var entry = iterator.next();
+            if (entry.entity == entity) {
+                iterator.remove();
+                entry.light.remove(true);
+                return;
+            }
+        }
     }
 
     private static class Entry {

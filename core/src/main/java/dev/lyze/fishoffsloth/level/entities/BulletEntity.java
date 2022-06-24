@@ -5,21 +5,32 @@ import com.dongbat.jbump.Response;
 import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.level.collisionFilters.BulletCollisionFilter;
+import dev.lyze.fishoffsloth.level.entities.data.BulletData;
 import dev.lyze.fishoffsloth.utils.Direction;
+import lombok.var;
 
 public class BulletEntity extends MovableEntity {
     private final float travelDistance;
+    private final BulletData data;
     private final Direction direction;
 
     private boolean alreadyRemoved;
 
-    public BulletEntity(float x, float y, float travelDistance, Direction direction, Level level) {
-        super(x, y, 25, 25, level, BulletCollisionFilter.instance);
+    public BulletEntity(float x, float y, Direction direction, BulletData data, Level level) {
+        super(x, y, data.getWidth(), data.getHeight(), level, BulletCollisionFilter.instance);
 
         this.direction = direction;
-        this.travelDistance = x + (travelDistance * direction.getValue().x);
+        this.data = data;
+        this.travelDistance = x + (data.getTravelDistance() * direction.getValue().x);
+
+        setIdle(data.getAnimation());
+        setRun(data.getAnimation());
 
         setSpeed(10);
+        setAnimationXOffset(-data.getAnimationOffsetX());
+
+        var light = level.getLightWorld().createPointLight(0, 0, data.getLightColor(), data.getLightDistance(), data.getLightRays());
+        level.getLightWorld().getSyncer().addEntity(this, light, getWidth() / 2f + data.getLightOffsetX() * direction.getValue().x, data.getLightOffsetY());
     }
 
     @Override
@@ -50,6 +61,7 @@ public class BulletEntity extends MovableEntity {
 
         alreadyRemoved = true;
         level.getEntityWorld().removeEntity(this);
+        level.getLightWorld().getSyncer().removeEntity(this);
     }
 
     private boolean isOutOfDistance() {
