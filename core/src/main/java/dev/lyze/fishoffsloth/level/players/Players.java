@@ -11,20 +11,21 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 public class Players {
     @Getter private final Array<Player> players = new Array<>();
 
-    @Getter private final Player player1, player2;
+    @Getter private Player player1, player2;
 
     private final Level level;
 
 
-    public Players(Level level) {
+    public Players(boolean multiplayer, Level level) {
         this.level = level;
 
-        players.add(player1 = new LyzePlayer(level));
-        players.add(player2 = new SunnyPlayer(level));
+        this.players.add(player1 = new LyzePlayer(level));
+        if (multiplayer)
+            this.players.add(player2 = new SunnyPlayer(level));
 
-        players.forEach(p -> p.addToWorld(level.getEntityWorld().getWorld()));
+        this.players.forEach(p -> p.addToWorld(level.getEntityWorld().getWorld()));
 
-        players.forEach(p -> level.getLightWorld().getSyncer().addEntity(p, level.getLightWorld().createPointLight(0, 0, new Color(1, 1, 1, 0.3f), 300, 32), p.getWidth() / 2f, p.getHeight() / 2f));
+        this.players.forEach(p -> level.getLightWorld().getSyncer().addEntity(p, level.getLightWorld().createPointLight(0, 0, new Color(1, 1, 1, 0.3f), 300, 32), p.getWidth() / 2f, p.getHeight() / 2f));
     }
 
     public void update(float delta) {

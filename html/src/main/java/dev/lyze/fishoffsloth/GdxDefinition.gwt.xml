@@ -13,6 +13,7 @@
 	<inherits name="libgdx_screenmanager_gwt" />
 	<inherits name="regexodus" />
 	<inherits name="space.earlygrey.shapedrawer" />
+	<inherits name="com.gempukku.libgdx.lib"/>
 	<inherits name="textratypist" />
     <entry-point class="dev.lyze.fishoffsloth.gwt.GwtLauncher" />
     <set-configuration-property name="gdx.assetpath" value="../assets" />

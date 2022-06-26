@@ -13,9 +13,12 @@ public class PlayerSpawner extends MapSpawner<PlayerSpawnerProperties> {
 
     @Override
     protected void spawnInternal(float x, float y, PlayerSpawnerProperties data) {
-        log.logInfo("Spawning player: First player: " + data.isFirstPlayer() + " at " + x + " /" + y);
+        log.logInfo("Spawning player: " + data.getPlayer() + " at " + x + " /" + y);
 
-        var player = data.isFirstPlayer() ? level.getPlayers().getPlayer1() : level.getPlayers().getPlayer2();
+        var player = level.getPlayers().getPlayers().size > data.getPlayer() ? level.getPlayers().getPlayers().get(data.getPlayer()) : null;
+        if (player == null)
+            return;
+
         player.getPosition().set(x, y);
         level.getEntityWorld().getWorld().update(player.getItem(), x, y);
     }

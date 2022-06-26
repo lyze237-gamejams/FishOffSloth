@@ -5,20 +5,32 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.gempukku.libgdx.lib.camera2d.FocusCameraController;
+import com.gempukku.libgdx.lib.camera2d.constraint.FitAllCameraConstraint;
+import com.gempukku.libgdx.lib.camera2d.constraint.LockedToCameraConstraint;
+import com.gempukku.libgdx.lib.camera2d.constraint.MinimumViewportCameraConstraint;
+import com.gempukku.libgdx.lib.camera2d.focus.EntityFocus;
+import com.gempukku.libgdx.lib.camera2d.focus.FitAllCameraFocus;
 import dev.lyze.fishoffsloth.Statics;
 import dev.lyze.fishoffsloth.level.entities.Entity;
+import dev.lyze.fishoffsloth.level.entities.EntityPositionProvider;
 import dev.lyze.fishoffsloth.level.players.Players;
 import dev.lyze.fishoffsloth.map.Map;
 import dev.lyze.fishoffsloth.utils.PixmapUtils;
 import lombok.CustomLog;
 import lombok.Getter;
+import lombok.var;
 import space.earlygrey.shapedrawer.ShapeDrawer;
+
+import java.util.Arrays;
 
 @CustomLog
 public class Level {
-    private final Viewport viewport = new ExtendViewport(1920, 1080, new GameCamera());
+    private final Viewport viewport = new ExtendViewport(1920, 1080);
     private final SpriteBatch batch = new SpriteBatch();
     private final ShapeDrawer drawer = new ShapeDrawer(batch, PixmapUtils.createTexture(1, 1, Color.WHITE));
     private final BitmapFont debugFont = new BitmapFont();
@@ -30,10 +42,12 @@ public class Level {
 
     @Getter private final Players players;
 
-    public Level(TiledMap map) {
+    private FocusCameraController cameraController;
+
+    public Level(boolean players, TiledMap map) {
         this.map = new Map(this, map);
 
-        this.players = new Players(this);
+        this.players = new Players(players, this);
 
         drawer.setDefaultLineWidth(4);
     }
@@ -41,15 +55,19 @@ public class Level {
     public void initialize() {
         this.map.initialize();
 
-        for (int i = 0; i < 100; i++)
-            ((GameCamera) viewport.getCamera()).update(players.getPlayer1().getPosition(), players.getPlayer2().getPosition(), map.getBoundaries(), 0.1f);
+        var cameraFoci = Arrays.stream(players.getPlayers().shrink()).map(player -> new EntityFocus(new EntityPositionProvider(player))).toArray(EntityFocus[]::new);
+        cameraController = new FocusCameraController(viewport.getCamera(),
+                new FitAllCameraFocus(cameraFoci),
+                new LockedToCameraConstraint(new Vector2(0.5f, 0.5f)),
+                new FitAllCameraConstraint(new Rectangle(0.2f, 0.2f, 0.6f, 0.6f), cameraFoci),
+                new MinimumViewportCameraConstraint(1020, 1080));
     }
 
     public void update(float delta) {
         players.update(delta);
         entityWorld.update(delta);
         lightWorld.update(delta);
-        ((GameCamera) viewport.getCamera()).update(players.getPlayer1().getPosition(), players.getPlayer2().getPosition(), map.getBoundaries(), delta);
+        cameraController.update(delta);
     }
 
     public void render() {

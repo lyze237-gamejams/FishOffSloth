@@ -9,6 +9,7 @@ import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.utils.ManagedScreenAdapter;
 import dev.lyze.fishoffsloth.utils.UpdateRenderLoop;
 import lombok.CustomLog;
+import lombok.var;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,11 @@ public class GameScreen extends ManagedScreenAdapter {
 
         gamepads.clear();
 
-        level = new Level(new TmxMapLoader().load("maps/DevMap.tmx"));
+        var multiplayer = false;
+        if (pushParams != null)
+            multiplayer = (boolean) pushParams[0];
+
+        level = new Level(multiplayer, new TmxMapLoader().load("maps/DevMap.tmx"));
         level.initialize();
         loop = new UpdateRenderLoop(this::update, this::render);
 

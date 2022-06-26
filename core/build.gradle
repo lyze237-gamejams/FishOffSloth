@@ -11,5 +11,6 @@ dependencies {
 	api "com.github.tommyettinger:textratypist:$textratypistVersion"
 	api "org.projectlombok:lombok:$lombokVersion"
 	api "space.earlygrey:shapedrawer:$shapeDrawerVersion"
+	api "com.gempukku.libgdx.lib:libgdx-gemp-lib:$gdxGempLibVersion"
 	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 }

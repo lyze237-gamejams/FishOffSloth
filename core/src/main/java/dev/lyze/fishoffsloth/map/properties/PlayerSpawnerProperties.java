@@ -7,5 +7,5 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PlayerSpawnerProperties extends MapSpawnerProperties {
-    private boolean firstPlayer;
+    private int player;
 }
