@@ -15,6 +15,7 @@ public class LyzePlayer extends Player {
                 .offsetX(120).offsetY(70)
                 .animationOffsetX(110)
                 .travelDistance(800)
+                .damage(2)
                 .timeBetweenShots(800)
                 .lightDistance(130)
                 .lightOffsetX(0).lightOffsetY(40)

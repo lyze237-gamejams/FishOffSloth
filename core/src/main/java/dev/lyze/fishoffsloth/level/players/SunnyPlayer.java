@@ -14,6 +14,7 @@ public class SunnyPlayer extends Player {
                 .lightColor(new Color(1, 1, 1, 0.4f))
                 .offsetX(10).offsetY(65)
                 .travelDistance(700)
+                .damage(1)
                 .timeBetweenShots(100)
                 .lightDistance(50)
                 .lightOffsetX(0).lightOffsetY(30)

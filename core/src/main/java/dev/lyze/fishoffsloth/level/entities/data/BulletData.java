@@ -13,6 +13,8 @@ public class BulletData {
 
     private float speed;
 
+    private int damage;
+
     private Animation<TextureAtlas.AtlasRegion> animation;
     private float offsetX, offsetY;
     private float animationOffsetX;

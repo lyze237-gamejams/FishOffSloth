@@ -21,6 +21,7 @@
   <tile id="4" type="PatrollingEnemySpawner">
    <properties>
     <property name="Direction" value="Left"/>
+    <property name="Health" type="int" value="2"/>
     <property name="Sloth" value="Beauty"/>
    </properties>
   </tile>
@@ -37,6 +38,7 @@
   <tile id="7" type="PatrollingEnemySpawner">
    <properties>
     <property name="Direction" value="Left"/>
+    <property name="Health" type="int" value="4"/>
     <property name="Sloth" value="Clogg"/>
    </properties>
   </tile>

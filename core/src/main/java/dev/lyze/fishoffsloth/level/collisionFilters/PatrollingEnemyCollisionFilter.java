@@ -3,6 +3,7 @@ package dev.lyze.fishoffsloth.level.collisionFilters;
 import com.dongbat.jbump.CollisionFilter;
 import com.dongbat.jbump.Item;
 import com.dongbat.jbump.Response;
+import dev.lyze.fishoffsloth.level.entities.MovableEntity;
 import dev.lyze.fishoffsloth.level.entities.tiles.Tile;
 import dev.lyze.fishoffsloth.level.players.Player;
 
@@ -16,6 +17,9 @@ public class PatrollingEnemyCollisionFilter implements CollisionFilter {
 
         if (other.userData instanceof Tile && !((Tile) other.userData).isHitbox())
             return Response.cross;
+
+        if (other.userData instanceof MovableEntity)
+            return null;
 
         return Response.slide;
     }

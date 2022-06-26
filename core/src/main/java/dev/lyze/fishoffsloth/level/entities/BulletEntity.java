@@ -14,8 +14,6 @@ public class BulletEntity extends MovableEntity {
     private final BulletData data;
     private final Direction direction;
 
-    private boolean alreadyRemoved;
-
     public BulletEntity(float x, float y, Direction direction, BulletData data, Level level) {
         super(x, y, data.getWidth(), data.getHeight(), level, BulletCollisionFilter.instance);
 
@@ -37,7 +35,7 @@ public class BulletEntity extends MovableEntity {
     public void update(EntityWorld world, float delta) {
         move();
         if (isOutOfDistance())
-            destroy();
+            die();
 
         super.update(world, delta);
     }
@@ -47,21 +45,18 @@ public class BulletEntity extends MovableEntity {
         super.onCollision(collision);
 
         if (collision.type != Response.cross)
-            destroy();
+            die();
+
+        if (collision.other.userData instanceof MovableEntity) {
+            var entity = ((MovableEntity) collision.other.userData);
+
+            entity.damage(data.getDamage());
+        }
     }
 
     private void move() {
         wantsToMoveLeft = direction == Direction.Left ? 1 : 0;
         wantsToMoveRight = direction == Direction.Right ? 1 : 0;
-    }
-
-    private void destroy() {
-        if (alreadyRemoved)
-            return;
-
-        alreadyRemoved = true;
-        level.getEntityWorld().removeEntity(this);
-        level.getLightWorld().getSyncer().removeEntity(this);
     }
 
     private boolean isOutOfDistance() {

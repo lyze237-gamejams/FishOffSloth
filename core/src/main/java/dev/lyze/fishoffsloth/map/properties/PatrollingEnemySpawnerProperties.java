@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class PatrollingEnemySpawnerProperties extends MapSpawnerProperties {
     private Direction direction;
     private Sloth sloth;
+    private int health;
 }

@@ -19,7 +19,7 @@ public class BulletCollisionFilter implements CollisionFilter {
             return Response.cross;
 
         if (other.userData instanceof MovableEntity)
-            return null;
+            return Response.cross;
 
         return Response.slide;
     }

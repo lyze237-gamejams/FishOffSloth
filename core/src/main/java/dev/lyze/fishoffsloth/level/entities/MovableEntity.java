@@ -24,6 +24,8 @@ public class MovableEntity extends Entity {
     @Getter private boolean isGrounded;
     @Getter private long lastGrounded;
 
+    @Getter @Setter private Integer health;
+
     @Getter @Setter
     private Animation<TextureAtlas.AtlasRegion> idle, run, death;
     private Animation<TextureAtlas.AtlasRegion> currentAnimation;
@@ -172,4 +174,18 @@ public class MovableEntity extends Entity {
     }
 
     protected void beforeApplyVelocity(EntityWorld world, float delta) { }
+
+    public void damage(int amount) {
+        if (health == null)
+            return;
+
+        health = Math.max(health - amount, 0);
+
+        if (health <= 0)
+            die();
+    }
+
+    protected void die() {
+        level.removeEntity(this);
+    }
 }

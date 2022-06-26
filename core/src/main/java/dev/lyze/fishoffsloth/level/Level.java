@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import dev.lyze.fishoffsloth.Statics;
+import dev.lyze.fishoffsloth.level.entities.Entity;
 import dev.lyze.fishoffsloth.level.players.Players;
 import dev.lyze.fishoffsloth.map.Map;
 import dev.lyze.fishoffsloth.utils.PixmapUtils;
@@ -82,9 +83,13 @@ public class Level {
         }
     }
 
-
     public void resize(int width, int height) {
         viewport.update(width, height);
         lightWorld.resize(width, height, viewport);
+    }
+
+    public void removeEntity(Entity entity) {
+        entityWorld.removeEntity(entity);
+        lightWorld.getSyncer().removeEntity(entity);
     }
 }
