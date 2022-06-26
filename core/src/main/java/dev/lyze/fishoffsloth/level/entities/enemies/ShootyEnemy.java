@@ -35,6 +35,8 @@ public class ShootyEnemy extends ShooterEntity {
         setDoDeathAnimation(true);
         
         this.direction = direction;
+        if (direction == Direction.Left && isFacingRight)
+            flip();
 
         Animation<TextureAtlas.AtlasRegion> animation = null;
         switch (sloth) {
