@@ -19,7 +19,6 @@ public class LightWorld {
     public LightWorld() {
         rayHandler.setCulling(true);
         RayHandler.useDiffuseLight(true);
-        rayHandler.setAmbientLight(new Color(0.2f, 0.2f, 0.2f, 0.2f));
     }
 
     public Body createRectangle(float x, float y, float width, float height, BodyDef.BodyType type) {
@@ -43,6 +42,10 @@ public class LightWorld {
         light.setSoft(false);
 
         return light;
+    }
+
+    public void setAmbientLight(Color color) {
+        rayHandler.setAmbientLight(color);
     }
 
     public void update(float delta) {

@@ -35,6 +35,11 @@ public class Map {
         parseCollision();
         parseLights();
         setupBoundaries();
+        parseAmbientLight();
+    }
+
+    private void parseAmbientLight() {
+        level.getLightWorld().setAmbientLight(map.getProperties().get("AmbientColor", Color.RED, Color.class));
     }
 
     private void setupBoundaries() {

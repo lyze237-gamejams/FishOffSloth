@@ -64,7 +64,8 @@ public class Level {
         batch.end();
 
         lightWorld.render(viewport);
-        lightWorld.debugRender(viewport);
+        if (Statics.debug)
+            lightWorld.debugRender(viewport);
 
         batch.setColor(Color.WHITE);
         batch.begin();
