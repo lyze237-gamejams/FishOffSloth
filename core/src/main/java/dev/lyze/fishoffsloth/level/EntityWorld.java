@@ -46,9 +46,10 @@ public class EntityWorld {
         }
 
         for (var e : entitiesToRemove) {
-            entities.remove(e);
-            if (!world.hasItem(e.getItem()))
+            if (world.hasItem(e.getItem())) {
                 world.remove(e.getItem());
+                entities.remove(e);
+            }
         }
         entitiesToRemove.clear();
     }

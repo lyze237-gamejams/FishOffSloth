@@ -51,6 +51,7 @@ public class BulletEntity extends MovableEntity {
             var entity = ((MovableEntity) collision.other.userData);
 
             entity.damage(data.getDamage());
+            die();
         }
     }
 

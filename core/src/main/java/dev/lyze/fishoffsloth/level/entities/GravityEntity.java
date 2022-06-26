@@ -40,7 +40,7 @@ public class GravityEntity extends MovableEntity {
         applyGravity(delta);
     }
 
-    private void applyGravity(float delta) {
+    protected void applyGravity(float delta) {
         velocity.y += gravity * delta;
 
         if (isJumping && velocity.y < 0) {
@@ -93,9 +93,7 @@ public class GravityEntity extends MovableEntity {
 
     @Override
     protected void updateAnimation() {
-        if (isDead())
-            setAnimation(getDeath());
-        else if (isJumping)
+        if (isJumping)
             setAnimation(jump);
         else if (!isGrounded())
             setAnimation(fall);

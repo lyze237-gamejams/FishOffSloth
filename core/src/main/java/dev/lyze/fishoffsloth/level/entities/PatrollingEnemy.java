@@ -17,6 +17,8 @@ public class PatrollingEnemy extends GravityEntity {
 
     public PatrollingEnemy(float x, float y, Direction direction, Sloth sloth, Level level) {
         super(x, y, 75, 200, level, PatrollingEnemyCollisionFilter.instance);
+
+        setDoDeathAnimation(true);
         
         this.direction = direction;
 

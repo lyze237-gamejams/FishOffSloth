@@ -1,10 +1,15 @@
 package dev.lyze.fishoffsloth.level.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.dongbat.jbump.*;
+import com.dongbat.jbump.Collision;
+import com.dongbat.jbump.CollisionFilter;
+import com.dongbat.jbump.Collisions;
+import com.dongbat.jbump.Response;
 import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
 import lombok.*;
@@ -20,15 +25,19 @@ public class MovableEntity extends Entity {
 
     protected float wantsToMoveLeft, wantsToMoveRight;
 
-    @Getter private boolean isDead;
     @Getter private boolean isGrounded;
     @Getter private long lastGrounded;
 
     @Getter @Setter private Integer health;
+    @Getter @Setter private boolean doDeathAnimation;
+    @Getter private Color tintColor = new Color(1, 1, 1, 1);
+
+    @Getter @Setter private float rotation;
 
     @Getter @Setter
     private Animation<TextureAtlas.AtlasRegion> idle, run, death;
     private Animation<TextureAtlas.AtlasRegion> currentAnimation;
+    private Sprite sprite;
 
     @Getter @Setter(AccessLevel.PROTECTED)
     private float animationXOffset, animationYOffset;
@@ -44,6 +53,7 @@ public class MovableEntity extends Entity {
     public MovableEntity(float x, float y, float width, float height, Level level, CollisionFilter collisionFilter) {
         super(x, y, width, height, level);
         this.collisionFilter = collisionFilter;
+        this.sprite = new Sprite();
     }
 
     @Override
@@ -72,13 +82,24 @@ public class MovableEntity extends Entity {
         if (currentAnimation == null)
             return;
 
-        var frame = currentAnimation.getKeyFrame(animationTime);
+        renderFrame(batch, currentAnimation.getKeyFrame(animationTime));
+    }
+
+    protected void renderFrame(SpriteBatch batch, TextureAtlas.AtlasRegion frame) {
+        if (frame == null)
+            return;
+
         var drawX = isFacingRight ? position.x + animationXOffset : position.x + width - animationXOffset;
         var drawY = position.y + animationYOffset;
         var drawWidth = isFacingRight ? frame.getRegionWidth() : -frame.getRegionWidth();
         var drawHeight = frame.getRegionHeight();
 
-        batch.draw(frame, drawX, drawY, drawWidth, drawHeight);
+        sprite.setRegion(frame);
+        sprite.setBounds(drawX, drawY, drawWidth, drawHeight);
+        sprite.setOriginCenter();
+        sprite.setRotation(rotation);
+        sprite.setColor(tintColor);
+        sprite.draw(batch);
     }
 
     private void setInput() {
@@ -111,10 +132,7 @@ public class MovableEntity extends Entity {
             velocity.x = 0;
     }
 
-    private void checkCollisionsAndApplyVelocity(EntityWorld world, float delta) {
-        if (isDead)
-            return;
-
+    protected void checkCollisionsAndApplyVelocity(EntityWorld world, float delta) {
         var response = world.getWorld().move(item, position.x + velocity.x, position.y + velocity.y, collisionFilter);
 
         for (int i = 0; i < response.projectedCollisions.size(); i++)
@@ -151,9 +169,7 @@ public class MovableEntity extends Entity {
     }
 
     protected void updateAnimation() {
-        if (isDead)
-            setAnimation(death);
-        else if (velocity.x > 0 || velocity.x < 0)
+        if (velocity.x > 0 || velocity.x < 0)
             setAnimation(run);
         else
             setAnimation(idle);
@@ -187,5 +203,14 @@ public class MovableEntity extends Entity {
 
     protected void die() {
         level.removeEntity(this);
+
+        if (!doDeathAnimation)
+            return;
+
+        TextureAtlas.AtlasRegion keyFrame = null;
+        if (currentAnimation != null)
+            keyFrame = currentAnimation.getKeyFrame(animationTime);
+
+        level.getEntityWorld().addEntity(new DeadEntity(position.x, position.y, width, height, keyFrame, level));
     }
 }
