@@ -6,6 +6,7 @@ import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.level.collisionFilters.BulletCollisionFilter;
 import dev.lyze.fishoffsloth.level.entities.data.BulletData;
+import dev.lyze.fishoffsloth.level.players.Player;
 import dev.lyze.fishoffsloth.utils.Direction;
 import lombok.var;
 
@@ -50,8 +51,10 @@ public class BulletEntity extends MovableEntity {
         if (collision.other.userData instanceof MovableEntity) {
             var entity = ((MovableEntity) collision.other.userData);
 
-            entity.damage(data.getDamage());
-            die();
+            if (entity instanceof Player && data.isEnemy() || !(entity instanceof Player) && !data.isEnemy()) {
+                entity.damage(data.getDamage());
+                die();
+            }
         }
     }
 

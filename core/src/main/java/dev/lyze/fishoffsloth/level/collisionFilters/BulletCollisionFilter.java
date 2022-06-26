@@ -6,16 +6,12 @@ import com.dongbat.jbump.Response;
 import dev.lyze.fishoffsloth.level.entities.BulletEntity;
 import dev.lyze.fishoffsloth.level.entities.MovableEntity;
 import dev.lyze.fishoffsloth.level.entities.tiles.Tile;
-import dev.lyze.fishoffsloth.level.players.Player;
 
 public class BulletCollisionFilter implements CollisionFilter {
     public static final BulletCollisionFilter instance = new BulletCollisionFilter();
 
     @Override
     public Response filter(Item item, Item other) {
-        if (other.userData instanceof Player)
-            return null;
-
         if (other.userData instanceof BulletEntity)
             return null;
 

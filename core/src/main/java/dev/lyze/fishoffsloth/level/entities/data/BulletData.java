@@ -15,6 +15,8 @@ public class BulletData {
 
     private int damage;
 
+    private boolean enemy;
+
     private Animation<TextureAtlas.AtlasRegion> animation;
     private float offsetX, offsetY;
     private float animationOffsetX;

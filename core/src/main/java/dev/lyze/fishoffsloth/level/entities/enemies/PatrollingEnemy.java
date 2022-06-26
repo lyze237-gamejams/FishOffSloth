@@ -1,4 +1,4 @@
-package dev.lyze.fishoffsloth.level.entities;
+package dev.lyze.fishoffsloth.level.entities.enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -7,6 +7,7 @@ import dev.lyze.fishoffsloth.Statics;
 import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.level.collisionFilters.PatrollingEnemyCollisionFilter;
+import dev.lyze.fishoffsloth.level.entities.GravityEntity;
 import dev.lyze.fishoffsloth.level.entities.tiles.PatrolDirectionChangeTile;
 import dev.lyze.fishoffsloth.utils.Direction;
 import dev.lyze.fishoffsloth.utils.Sloth;

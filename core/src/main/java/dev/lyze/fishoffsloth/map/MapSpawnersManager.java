@@ -23,6 +23,7 @@ public class MapSpawnersManager {
         spawners.add(new PlayerSpawner(level, map));
         spawners.add(new PatrollingEnemySpawner(level, map));
         spawners.add(new PatrolDirectionChangeSpawner(level, map));
+        spawners.add(new ShootyEnemySpawner(level, map));
     }
 
     public void initialize() {

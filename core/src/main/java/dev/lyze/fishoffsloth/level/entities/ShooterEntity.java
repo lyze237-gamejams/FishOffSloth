@@ -18,12 +18,11 @@ public class ShooterEntity extends GravityEntity {
 
     private long lastShot = System.currentTimeMillis();
 
-    private final BulletData bulletData;
+    @Getter private final BulletData bulletData;
 
     private long showShootAnimation = 200;
 
     @Getter @Setter private Animation<TextureAtlas.AtlasRegion> shoot;
-
 
     public ShooterEntity(float x, float y, float width, float height, BulletData bulletData, Level level, CollisionFilter collisionFilter) {
         super(x, y, width, height, level, collisionFilter);

@@ -1,7 +1,7 @@
 package dev.lyze.fishoffsloth.map;
 
 import dev.lyze.fishoffsloth.level.Level;
-import dev.lyze.fishoffsloth.level.entities.PatrollingEnemy;
+import dev.lyze.fishoffsloth.level.entities.enemies.PatrollingEnemy;
 import dev.lyze.fishoffsloth.map.properties.PatrollingEnemySpawnerProperties;
 import lombok.CustomLog;
 
