@@ -25,6 +25,7 @@ public class LyzePlayer extends Player {
         setIdle(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/lyze/idle"), Animation.PlayMode.LOOP));
         setJump(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/lyze/jump"), Animation.PlayMode.LOOP));
         setFall(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/lyze/jump"), Animation.PlayMode.LOOP));
+        setShoot(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/lyze/shoot"), Animation.PlayMode.LOOP));
 
         setAnimationXOffset(-75f);
         setAnimationYOffset(-10f);

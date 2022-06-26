@@ -24,6 +24,7 @@ public class SunnyPlayer extends Player {
         setIdle(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/sunny/idle"), Animation.PlayMode.LOOP));
         setJump(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/sunny/jump"), Animation.PlayMode.LOOP));
         setFall(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/sunny/jump"), Animation.PlayMode.LOOP));
+        setShoot(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/sunny/shoot"), Animation.PlayMode.LOOP));
 
         setAnimationXOffset(-60f);
         setAnimationYOffset(-10f);

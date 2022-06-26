@@ -36,7 +36,7 @@ public class MovableEntity extends Entity {
 
     @Getter @Setter
     private Animation<TextureAtlas.AtlasRegion> idle, run, death;
-    private Animation<TextureAtlas.AtlasRegion> currentAnimation;
+    @Getter private Animation<TextureAtlas.AtlasRegion> currentAnimation;
     private Sprite sprite;
 
     @Getter @Setter(AccessLevel.PROTECTED)

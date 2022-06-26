@@ -1,12 +1,16 @@
 package dev.lyze.fishoffsloth.level.entities;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.dongbat.jbump.CollisionFilter;
 import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.level.entities.data.BulletData;
 import dev.lyze.fishoffsloth.utils.Direction;
+import lombok.Getter;
+import lombok.Setter;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class ShooterEntity extends GravityEntity {
@@ -15,6 +19,11 @@ public class ShooterEntity extends GravityEntity {
     private long lastShot = System.currentTimeMillis();
 
     private final BulletData bulletData;
+
+    private long showShootAnimation = 200;
+
+    @Getter @Setter private Animation<TextureAtlas.AtlasRegion> shoot;
+
 
     public ShooterEntity(float x, float y, float width, float height, BulletData bulletData, Level level, CollisionFilter collisionFilter) {
         super(x, y, width, height, level, collisionFilter);
@@ -27,6 +36,14 @@ public class ShooterEntity extends GravityEntity {
         checkShooting();
 
         super.update(world, delta);
+    }
+
+    @Override
+    protected void updateAnimation() {
+        super.updateAnimation();
+
+        if (getCurrentAnimation() == getIdle() && System.currentTimeMillis() - lastShot < showShootAnimation)
+            setAnimation(shoot);
     }
 
     private void checkShooting() {
