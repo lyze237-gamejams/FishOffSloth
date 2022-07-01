@@ -36,7 +36,7 @@ public class BulletEntity extends MovableEntity {
     public void update(EntityWorld world, float delta) {
         move();
         if (isOutOfDistance())
-            die();
+            die(direction);
 
         super.update(world, delta);
     }
@@ -46,14 +46,14 @@ public class BulletEntity extends MovableEntity {
         super.onCollision(collision);
 
         if (collision.type != Response.cross)
-            die();
+            die(direction);
 
         if (collision.other.userData instanceof MovableEntity) {
             var entity = ((MovableEntity) collision.other.userData);
 
             if (entity instanceof Player && data.isEnemy() || !(entity instanceof Player) && !data.isEnemy()) {
-                entity.damage(data.getDamage());
-                die();
+                entity.damage(data.getDamage(), direction);
+                die(direction);
             }
         }
     }

@@ -12,6 +12,7 @@ import dev.lyze.fishoffsloth.level.collisionFilters.PlayerCollisionFilter;
 import dev.lyze.fishoffsloth.level.entities.ShooterEntity;
 import dev.lyze.fishoffsloth.level.entities.data.BulletData;
 import dev.lyze.fishoffsloth.level.entities.tiles.CoinTile;
+import dev.lyze.fishoffsloth.utils.Direction;
 import lombok.Getter;
 import lombok.Setter;
 import space.earlygrey.shapedrawer.ShapeDrawer;
@@ -98,10 +99,10 @@ public class Player extends ShooterEntity {
     }
 
     @Override
-    public void damage(int amount) {
+    public void damage(int amount, Direction from) {
         if (getBlinkTime() > 0)
             return;
 
-        super.damage(amount);
+        super.damage(amount, from);
     }
 }

@@ -12,6 +12,7 @@ import com.dongbat.jbump.Collisions;
 import com.dongbat.jbump.Response;
 import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
+import dev.lyze.fishoffsloth.utils.Direction;
 import lombok.*;
 
 @CustomLog
@@ -193,7 +194,7 @@ public class MovableEntity extends BlinkableEntity {
 
     protected void beforeApplyVelocity(EntityWorld world, float delta) { }
 
-    public void damage(int amount) {
+    public void damage(int amount, Direction from) {
         if (health == null)
             return;
 
@@ -202,10 +203,10 @@ public class MovableEntity extends BlinkableEntity {
         startBlink();
 
         if (health <= 0)
-            die();
+            die(from);
     }
 
-    protected void die() {
+    protected void die(Direction from) {
         level.removeEntity(this);
 
         dead = true;
@@ -217,6 +218,6 @@ public class MovableEntity extends BlinkableEntity {
         if (currentAnimation != null)
             keyFrame = currentAnimation.getKeyFrame(animationTime);
 
-        level.getEntityWorld().addEntity(new DeadEntity(position.x, position.y, width, height, keyFrame, level));
+        level.getEntityWorld().addEntity(new DeadEntity(position.x, position.y, width, height, keyFrame, from, level));
     }
 }
