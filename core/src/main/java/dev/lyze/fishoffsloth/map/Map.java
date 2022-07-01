@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -21,7 +21,8 @@ public class Map {
     @Getter private Rectangle boundaries;
 
     private final Level level;
-    private final OrthogonalTiledMapRenderer renderer;
+    private final OrthogonalTiledMapRendererBleeding renderer;
+    private TiledMapTileLayer foregroundLayer;
 
     public Map(Level level, TiledMap map) {
         this.level = level;
@@ -32,10 +33,13 @@ public class Map {
 
     public void initialize() {
         new MapSpawnersManager(level, this).initialize();
+
         parseCollision();
         parseLights();
         setupBoundaries();
         parseAmbientLight();
+
+        foregroundLayer = ((TiledMapTileLayer) map.getLayers().get("Foreground"));
     }
 
     private void parseAmbientLight() {
@@ -102,5 +106,12 @@ public class Map {
     public void render(Viewport viewport) {
         renderer.setView(((OrthographicCamera) viewport.getCamera()));
         renderer.render();
+    }
+
+
+    public void renderForegroundLayer() {
+        renderer.begin();
+        renderer.renderTileLayer(foregroundLayer);
+        renderer.end();
     }
 }

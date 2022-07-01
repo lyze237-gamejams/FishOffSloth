@@ -91,6 +91,8 @@ public class Level {
         players.render(batch);
         batch.end();
 
+        map.renderForegroundLayer();
+
         if (Statics.debug) {
             batch.setColor(Color.WHITE);
             batch.begin();

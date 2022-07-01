@@ -176,4 +176,22 @@ public class OrthogonalTiledMapRendererBleeding extends OrthogonalTiledMapRender
         float invTexHeight = 1f / region.getTexture().getHeight();
         region.setRegion((x + fix) * invTexWidth, (y + fix) * invTexHeight, (x + width - fix) * invTexWidth, (y + height - fix) * invTexHeight); // Trims Region
     }
+
+    public void begin() {
+        beginRender();
+    }
+
+    public void end() {
+        endRender();
+    }
+
+    @Override
+    protected void beginRender() {
+        super.beginRender();
+    }
+
+    @Override
+    protected void endRender() {
+        super.endRender();
+    }
 }
