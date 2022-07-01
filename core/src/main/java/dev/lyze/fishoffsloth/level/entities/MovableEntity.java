@@ -15,7 +15,7 @@ import dev.lyze.fishoffsloth.level.Level;
 import lombok.*;
 
 @CustomLog
-public class MovableEntity extends Entity {
+public class MovableEntity extends BlinkableEntity {
     @Getter @Setter private float speed = 4f;
 
     protected final Vector2 velocity = new Vector2();
@@ -98,7 +98,7 @@ public class MovableEntity extends Entity {
         sprite.setBounds(drawX, drawY, drawWidth, drawHeight);
         sprite.setOriginCenter();
         sprite.setRotation(rotation);
-        sprite.setColor(tintColor);
+        sprite.setColor(tintColor.equals(Color.WHITE) ? batch.getColor() : tintColor);
         sprite.draw(batch);
     }
 
@@ -196,6 +196,8 @@ public class MovableEntity extends Entity {
             return;
 
         health = Math.max(health - amount, 0);
+
+        startBlink();
 
         if (health <= 0)
             die();
