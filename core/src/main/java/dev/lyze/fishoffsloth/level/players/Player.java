@@ -2,6 +2,7 @@ package dev.lyze.fishoffsloth.level.players;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import dev.lyze.fishoffsloth.gamepads.VirtualGamepadGroup;
 import dev.lyze.fishoffsloth.level.EntityWorld;
@@ -31,11 +32,22 @@ public class Player extends ShooterEntity {
 
     @Override
     public void update(EntityWorld world, float delta) {
+        if (isDead())
+            return;
+
         checkBounds();
         checkInput();
         super.update(world, delta);
 
         saveLastPosition(delta);
+    }
+
+    @Override
+    public void render(SpriteBatch batch) {
+        if (isDead())
+            return;
+
+        super.render(batch);
     }
 
     private void checkBounds() {
@@ -73,5 +85,13 @@ public class Player extends ShooterEntity {
 
         drawer.setColor(Color.YELLOW);
         drawer.circle(lastPosition.x, lastPosition.y, 10);
+    }
+
+    @Override
+    public void damage(int amount) {
+        if (getBlinkTime() > 0)
+            return;
+
+        super.damage(amount);
     }
 }

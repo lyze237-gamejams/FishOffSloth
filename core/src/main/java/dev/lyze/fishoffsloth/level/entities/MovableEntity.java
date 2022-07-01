@@ -32,6 +32,8 @@ public class MovableEntity extends BlinkableEntity {
     @Getter @Setter private boolean doDeathAnimation;
     @Getter private Color tintColor = new Color(1, 1, 1, 1);
 
+    @Getter private boolean dead;
+
     @Getter @Setter private float rotation;
 
     @Getter @Setter
@@ -205,6 +207,8 @@ public class MovableEntity extends BlinkableEntity {
 
     protected void die() {
         level.removeEntity(this);
+
+        dead = true;
 
         if (!doDeathAnimation)
             return;

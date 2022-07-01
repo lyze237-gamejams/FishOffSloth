@@ -3,9 +3,10 @@ package dev.lyze.fishoffsloth.level.entities;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
+import lombok.Getter;
 
 public class BlinkableEntity extends Entity {
-    private float blinkTime;
+    @Getter private float blinkTime;
     private final float blinkMaxTime = 0.3f;
 
     public BlinkableEntity(float x, float y, float width, float height, Level level) {
