@@ -55,7 +55,10 @@ public class EntityWorld {
     }
 
     public void render(SpriteBatch batch) {
-        entities.forEach(e -> e.render(batch));
+        entities.forEach(e -> {
+            batch.setColor(Color.WHITE);
+            e.render(batch);
+        });
     }
 
     public void debugRender(ShapeDrawer drawer, BitmapFont font) {
