@@ -16,7 +16,6 @@ public class Background {
     }
 
     public void draw(SpriteBatch batch, ShapeDrawer drawer, Map map) {
-        System.out.println(map.getWidth());
         drawer.filledRectangle(-map.getWidth(), 0, map.getWidth() * 2, background.getRegionHeight() * 10, topColor);
         for (int x = -map.getWidth(); x <= map.getWidth(); x += background.getRegionWidth()) {
             batch.draw(background, x, 0);

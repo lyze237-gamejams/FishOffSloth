@@ -11,7 +11,7 @@ public class CoinTile extends Tile {
     public CoinTile(float x, float y, Level level) {
         super(x, y, 75, 75, level);
 
-        texture = Statics.mainAtlas.findRegion("coin");
+        texture = Statics.mainAtlas.findRegion("carlcoinbig");
     }
 
     @Override

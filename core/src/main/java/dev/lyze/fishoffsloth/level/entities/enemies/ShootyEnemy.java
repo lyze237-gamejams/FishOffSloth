@@ -81,4 +81,12 @@ public class ShootyEnemy extends ShooterEntity {
 
         super.update(world, delta);
     }
+
+    @Override
+    protected void die(Direction from) {
+        super.die(from);
+
+        for (int i = 0; i < 25; i++)
+            level.getEntityWorld().addEntity(new EnemyExplosion(position.x + width / 2f, position.y, level));
+    }
 }
