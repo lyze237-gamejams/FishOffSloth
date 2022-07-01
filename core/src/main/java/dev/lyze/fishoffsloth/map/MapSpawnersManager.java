@@ -24,6 +24,7 @@ public class MapSpawnersManager {
         spawners.add(new PatrollingEnemySpawner(level, map));
         spawners.add(new PatrolDirectionChangeSpawner(level, map));
         spawners.add(new ShootyEnemySpawner(level, map));
+        spawners.add(new CoinSpawner(level, map));
     }
 
     public void initialize() {
