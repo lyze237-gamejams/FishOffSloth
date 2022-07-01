@@ -114,4 +114,8 @@ public class Map {
         renderer.renderTileLayer(foregroundLayer);
         renderer.end();
     }
+
+    public int getWidth() {
+        return foregroundLayer.getWidth() * foregroundLayer.getTileWidth();
+    }
 }

@@ -39,6 +39,7 @@ public class Level {
     @Getter private final LightWorld lightWorld = new LightWorld();
 
     @Getter private final Map map;
+    @Getter private final Background background = new Background();
 
     @Getter private final Players players;
 
@@ -75,9 +76,13 @@ public class Level {
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
+        batch.setColor(Color.WHITE);
+        batch.begin();
+        background.draw(batch, drawer, map);
+        batch.end();
+
         map.render(viewport);
 
-        batch.setColor(Color.WHITE);
         batch.begin();
         entityWorld.render(batch);
         batch.end();
