@@ -1,6 +1,7 @@
 package dev.lyze.fishoffsloth.level.entities.enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.dongbat.jbump.Collision;
 import dev.lyze.fishoffsloth.Statics;
@@ -12,6 +13,7 @@ import dev.lyze.fishoffsloth.level.players.Player;
 
 public class EnemyExplosion extends GravityEntity {
     private float invincibilityTimer = 0.1f;
+    private boolean groundTouched;
 
     public EnemyExplosion(float x, float y, Level level) {
         super(x, y, 30, 30, level, EnemyExplosionCollisionFilter.instance);
@@ -19,6 +21,7 @@ public class EnemyExplosion extends GravityEntity {
         setIdle(new Animation<>(0.2f, Statics.mainAtlas.findRegions("carlcoinsmall"), Animation.PlayMode.LOOP));
         setRun(new Animation<>(0.2f, Statics.mainAtlas.findRegions("carlcoinsmall"), Animation.PlayMode.LOOP));
         setJump(new Animation<>(0.2f, Statics.mainAtlas.findRegions("carlcoinsmall"), Animation.PlayMode.LOOP));
+        setFall(new Animation<>(0.2f, Statics.mainAtlas.findRegions("carlcoinsmall"), Animation.PlayMode.LOOP));
 
         if (MathUtils.randomBoolean())
             wantsToMoveRight = MathUtils.random(0.6f, 1f);
@@ -27,6 +30,11 @@ public class EnemyExplosion extends GravityEntity {
 
         setJumpForce(2f);
         setSpeed(2f);
+    }
+
+    @Override
+    public void render(SpriteBatch batch) {
+        super.render(batch);
     }
 
     @Override
@@ -50,13 +58,19 @@ public class EnemyExplosion extends GravityEntity {
         super.update(world, delta);
     }
 
-
-
     @Override
     protected void onCollision(Collision collision) {
         super.onCollision(collision);
 
-        if (collision.other.userData instanceof Player && invincibilityTimer < 0) {
+        if (!(collision.other.userData instanceof Player)) {
+            if (invincibilityTimer < 0)
+                groundTouched = true;
+
+            return;
+        }
+
+        if (groundTouched) {
+            Statics.playSound(Statics.coin1, Statics.coin2);
             level.removeEntity(this);
         }
     }
