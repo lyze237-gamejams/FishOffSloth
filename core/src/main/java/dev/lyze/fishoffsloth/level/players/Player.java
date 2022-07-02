@@ -68,6 +68,7 @@ public class Player extends ShooterEntity {
         if (level.getMap().getBoundaries().contains(position.x, position.y))
             return;
 
+        damage(1, Direction.Left);
         velocity.set(0, 0);
         position.set(lastPosition);
         level.getEntityWorld().getWorld().update(getItem(), position.x, position.y);

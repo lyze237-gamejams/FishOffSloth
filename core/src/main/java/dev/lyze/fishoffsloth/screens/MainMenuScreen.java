@@ -60,41 +60,40 @@ public class MainMenuScreen extends ManagedScreenAdapter  {
     }
 
     private void setupStage() {
-        var screenManager = ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager();
-
         stage = new Stage(new FitViewport(1920, 1080));
 
         var root = new Table();
         root.setFillParent(true);
 
-        root.add(new Label("Fish Off Sloth", labelStyle)).padBottom(24).row();
         root.add(new Image(Statics.mainAtlas.findRegion("selectMode"))).row();
 
-        var inner = new Table();
-        root.add(inner);
+        var charSelectTable = new Table();
+        root.add(charSelectTable);
 
-        for (PlayerType value : PlayerType.values()) {
-            var table = new Table();
-            var image = new ImageButton(new TextureRegionDrawable(Statics.mainAtlas.findRegion(value.getImagePath())));
-            image.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    screenManager.pushScreen(GameScreen.class.getName(), BlendingTransition.class.getName(), value);
-                }
-            });
-            table.add(image).row();
-            var text = new Label(value.toString(), labelStyle);
-            text.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    screenManager.pushScreen(GameScreen.class.getName(), BlendingTransition.class.getName(), value);
-                }
-            });
-            table.add(text);
-            inner.add(table);
+        var p1p2Table = new Table();
+        charSelectTable.add(p1p2Table);
+
+        var values = PlayerType.values();
+        for (int i = 0; i < values.length - 1; i++) {
+            var value = values[i];
+            p1p2Table.add(generateCharTable(value)).pad(12).row();
         }
+        charSelectTable.add(generateCharTable(values[values.length - 1])).pad(12);
 
         stage.addActor(root);
+    }
+
+    private Table generateCharTable(PlayerType value) {
+        var table = new Table();
+        var image = new ImageButton(new TextureRegionDrawable(Statics.mainAtlas.findRegion(value.getImagePath())));
+        image.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(GameScreen.class.getName(), BlendingTransition.class.getName(), value);
+            }
+        });
+        table.add(image).row();
+        return table;
     }
 
     @Override
