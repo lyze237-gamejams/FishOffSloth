@@ -71,14 +71,14 @@ public class MainMenuScreen extends ManagedScreenAdapter  {
         root.add(charSelectTable);
 
         var p1p2Table = new Table();
-        charSelectTable.add(p1p2Table);
+        charSelectTable.add(p1p2Table).padRight(128);
 
         var values = PlayerType.values();
         for (int i = 0; i < values.length - 1; i++) {
             var value = values[i];
             p1p2Table.add(generateCharTable(value)).pad(12).row();
         }
-        charSelectTable.add(generateCharTable(values[values.length - 1])).pad(12);
+        charSelectTable.add(generateCharTable(values[values.length - 1])).padLeft(128);
 
         stage.addActor(root);
     }
