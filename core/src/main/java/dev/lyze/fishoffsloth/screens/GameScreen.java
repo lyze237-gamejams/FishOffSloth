@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.ScreenUtils;
+import de.eskalon.commons.core.ManagedGame;
+import de.eskalon.commons.screen.transition.impl.HorizontalSlicingTransition;
 import dev.lyze.fishoffsloth.gamepads.VirtualGamepadGroup;
 import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.level.players.PlayerType;
@@ -21,6 +23,9 @@ public class GameScreen extends ManagedScreenAdapter {
 
     private final ArrayList<VirtualGamepadGroup> gamepads = new ArrayList<>();
 
+    private boolean restarting;
+    private float restartTimer;
+
     @Override
     protected void create() {
 
@@ -36,7 +41,7 @@ public class GameScreen extends ManagedScreenAdapter {
         if (pushParams != null)
             playerType = (PlayerType) pushParams[0];
 
-        level = new Level(playerType, new TmxMapLoader().load("maps/DevMap.tmx"));
+        level = new Level(this, playerType, new TmxMapLoader().load("maps/DevMap.tmx"));
         level.initialize();
         loop = new UpdateRenderLoop(this::update, this::render);
 
@@ -55,6 +60,12 @@ public class GameScreen extends ManagedScreenAdapter {
     private void update(float delta) {
         level.update(delta);
         gamepads.forEach(g -> g.reset(delta));
+
+        if (restarting)
+            if ((restartTimer -= delta) < 0) {
+                ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(MainMenuScreen.class.getName(), HorizontalSlicingTransition.class.getName());
+                restartTimer = 10000;
+            }
     }
 
     private void render() {
@@ -67,5 +78,13 @@ public class GameScreen extends ManagedScreenAdapter {
             return;
 
         level.resize(width, height);
+    }
+
+    public void restart() {
+        if (restarting)
+            return;
+
+        restarting = true;
+        restartTimer = 2f;
     }
 }

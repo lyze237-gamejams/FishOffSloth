@@ -21,6 +21,7 @@ import dev.lyze.fishoffsloth.level.entities.EntityPositionProvider;
 import dev.lyze.fishoffsloth.level.players.PlayerType;
 import dev.lyze.fishoffsloth.level.players.Players;
 import dev.lyze.fishoffsloth.map.Map;
+import dev.lyze.fishoffsloth.screens.GameScreen;
 import dev.lyze.fishoffsloth.utils.PixmapUtils;
 import lombok.CustomLog;
 import lombok.Getter;
@@ -45,10 +46,13 @@ public class Level {
     @Getter private final Background background = new Background();
 
     @Getter private final Players players;
+    @Getter private final GameScreen gameScreen;
 
     private FocusCameraController cameraController;
 
-    public Level(PlayerType playerType, TiledMap map) {
+    public Level(GameScreen gameScreen, PlayerType playerType, TiledMap map) {
+        this.gameScreen = gameScreen;
+
         this.hud = new Hud(this);
 
         this.map = new Map(this, map);

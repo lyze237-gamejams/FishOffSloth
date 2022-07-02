@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import dev.lyze.fishoffsloth.level.Level;
 import lombok.Getter;
+import lombok.var;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Players {
@@ -39,6 +40,18 @@ public class Players {
 
     public void update(float delta) {
         players.forEach(p -> p.update(level.getEntityWorld(), delta));
+
+        restartOnDeath();
+    }
+
+    private void restartOnDeath() {
+        var allDead = true;
+        for (var player : players)
+            if (!player.isDead())
+                allDead = false;
+
+        if (allDead)
+            level.getGameScreen().restart();
     }
 
     public void render(SpriteBatch batch) {
