@@ -2,6 +2,8 @@ package dev.lyze.fishoffsloth.level;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -55,6 +57,9 @@ public class LightWorld {
     }
 
     public void render(Viewport viewport) {
+        if (Gdx.app.getType() == Application.ApplicationType.WebGL)
+            return;
+
         rayHandler.setCombinedMatrix(((OrthographicCamera) viewport.getCamera()));
 
         rayHandler.render();
