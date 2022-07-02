@@ -18,7 +18,7 @@ import lombok.var;
 @CustomLog
 public class Map {
     @Getter private final TiledMap map;
-    @Getter private Rectangle boundaries;
+    @Getter private Rectangle boundaries, finishZone;
 
     private final Level level;
     private final OrthogonalTiledMapRendererBleeding renderer;
@@ -38,6 +38,7 @@ public class Map {
         parseLights();
         setupBoundaries();
         parseAmbientLight();
+        parseFinishZone();
 
         foregroundLayer = ((TiledMapTileLayer) map.getLayers().get("Foreground"));
     }
@@ -59,8 +60,21 @@ public class Map {
         }
 
         boundaries = new Rectangle(((RectangleMapObject) objects.get(0)).getRectangle());
-        boundaries.setPosition(boundaries.getX(), boundaries.getY());
-        boundaries.setSize(boundaries.getWidth(), boundaries.getHeight());
+    }
+
+    private void parseFinishZone() {
+        var layer = map.getLayers().get("FinishZone");
+        var objects = layer.getObjects();
+
+        if (objects.getCount() > 1) {
+            log.logInfo("Finish Zone has multiple collision objects attached. Taking first only.");
+        }
+        else if (objects.getCount() == 0) {
+            log.logError("Finish zone has no collision objects attached.");
+            return;
+        }
+
+        finishZone = new Rectangle(((RectangleMapObject) objects.get(0)).getRectangle());
     }
 
     private void parseLights() {

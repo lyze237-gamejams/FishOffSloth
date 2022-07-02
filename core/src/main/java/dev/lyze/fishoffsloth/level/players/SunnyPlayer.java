@@ -27,7 +27,7 @@ public class SunnyPlayer extends Player {
         setShoot(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/sunny/shoot"), Animation.PlayMode.LOOP));
 
         setHeartPath("players/sunny/heart");
-        setHealth(4);
+        setHealth(7);
         setAnimationXOffset(-60f);
         setAnimationYOffset(-10f);
     }

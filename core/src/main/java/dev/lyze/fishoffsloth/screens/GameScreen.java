@@ -23,8 +23,8 @@ public class GameScreen extends ManagedScreenAdapter {
 
     private final ArrayList<VirtualGamepadGroup> gamepads = new ArrayList<>();
 
-    private boolean restarting;
-    private float restartTimer;
+    private boolean restarting, finishing;
+    private float screenTimer;
 
     @Override
     protected void create() {
@@ -61,11 +61,19 @@ public class GameScreen extends ManagedScreenAdapter {
         level.update(delta);
         gamepads.forEach(g -> g.reset(delta));
 
-        if (restarting)
-            if ((restartTimer -= delta) < 0) {
+        if (restarting) {
+            if ((screenTimer -= delta) < 0) {
                 ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(MainMenuScreen.class.getName(), HorizontalSlicingTransition.class.getName());
-                restartTimer = 10000;
+                screenTimer = 10000;
             }
+        }
+
+        if (finishing) {
+            if ((screenTimer -= delta) < 0) {
+                ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(FinishScreen.class.getName(), HorizontalSlicingTransition.class.getName());
+                screenTimer = 10000;
+            }
+        }
     }
 
     private void render() {
@@ -85,6 +93,14 @@ public class GameScreen extends ManagedScreenAdapter {
             return;
 
         restarting = true;
-        restartTimer = 2f;
+        screenTimer = 2f;
+    }
+
+    public void finish() {
+        if (finishing)
+            return;
+
+        finishing = true;
+        screenTimer = 1f;
     }
 }

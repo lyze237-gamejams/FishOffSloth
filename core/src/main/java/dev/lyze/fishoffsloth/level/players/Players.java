@@ -41,7 +41,19 @@ public class Players {
     public void update(float delta) {
         players.forEach(p -> p.update(level.getEntityWorld(), delta));
 
+        checkFinishZone();
         restartOnDeath();
+    }
+
+
+    private void checkFinishZone() {
+        var touchFinish = false;
+        for (var player : players)
+            touchFinish |= level.getMap().getFinishZone().contains(player.getPosition().x, player.getPosition().y);
+
+        if (touchFinish) {
+            level.getGameScreen().finish();
+        }
     }
 
     private void restartOnDeath() {

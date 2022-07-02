@@ -28,7 +28,7 @@ public class LyzePlayer extends Player {
         setShoot(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/lyze/shoot"), Animation.PlayMode.LOOP));
 
         setHeartPath("players/lyze/heart");
-        setHealth(3);
+        setHealth(5);
         setAnimationXOffset(-75f);
         setAnimationYOffset(-10f);
     }

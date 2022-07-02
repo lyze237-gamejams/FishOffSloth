@@ -11,6 +11,7 @@ import de.eskalon.commons.screen.transition.impl.BlendingTransition;
 import de.eskalon.commons.screen.transition.impl.HorizontalSlicingTransition;
 import de.eskalon.commons.screen.transition.impl.SlidingDirection;
 import de.eskalon.commons.screen.transition.impl.SlidingOutTransition;
+import dev.lyze.fishoffsloth.screens.FinishScreen;
 import dev.lyze.fishoffsloth.screens.GameScreen;
 import dev.lyze.fishoffsloth.screens.MainMenuScreen;
 import dev.lyze.fishoffsloth.screens.SplashScreen;
@@ -47,6 +48,7 @@ public class Main extends ManagedGame<ManagedScreen, ScreenTransition> {
 		screenManager.addScreen(SplashScreen.class.getName(), new SplashScreen());
 		screenManager.addScreen(MainMenuScreen.class.getName(), new MainMenuScreen());
 		screenManager.addScreen(GameScreen.class.getName(), new GameScreen());
+		screenManager.addScreen(FinishScreen.class.getName(), new FinishScreen());
 
 		screenManager.addScreenTransition(BlendingTransition.class.getName(), new BlendingTransition(batch, 1F, Interpolation.pow2In));
 		screenManager.addScreenTransition(SlidingOutTransition.class.getName(), new SlidingOutTransition(batch, SlidingDirection.DOWN, 0.35F));
