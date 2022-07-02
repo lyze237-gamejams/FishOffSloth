@@ -7,8 +7,8 @@ import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.level.entities.data.BulletData;
 
 public class SunnyPlayer extends Player {
-    public SunnyPlayer(Level level) {
-        super(false, BulletData.builder()
+    public SunnyPlayer(Level level, boolean firstPlayer) {
+        super(firstPlayer, BulletData.builder()
                 .animation(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/sunny/bullet"), Animation.PlayMode.LOOP))
                 .width(70).height(55)
                 .lightColor(new Color(1, 1, 1, 0.4f))

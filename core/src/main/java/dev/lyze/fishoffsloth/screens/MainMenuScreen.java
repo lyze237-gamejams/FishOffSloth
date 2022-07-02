@@ -1,105 +1,105 @@
 package dev.lyze.fishoffsloth.screens;
 
-import box2dLight.PointLight;
-import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import de.eskalon.commons.core.ManagedGame;
-import de.eskalon.commons.screen.transition.impl.HorizontalSlicingTransition;
+import de.eskalon.commons.screen.transition.impl.BlendingTransition;
+import dev.lyze.fishoffsloth.Statics;
+import dev.lyze.fishoffsloth.level.players.PlayerType;
 import dev.lyze.fishoffsloth.utils.ManagedScreenAdapter;
-import lombok.CustomLog;
 import lombok.var;
 
-@CustomLog
-public class MainMenuScreen extends ManagedScreenAdapter {
-	private Viewport viewport;
-	private SpriteBatch batch;
-	private Texture texture;
+public class MainMenuScreen extends ManagedScreenAdapter  {
+    private BitmapFont font;
 
-	private World world;
-	private Box2DDebugRenderer box2DDebugRenderer;
-	private RayHandler rayHandler;
+    private Label.LabelStyle labelStyle;
 
-	@Override
-	public void create() {
+    private Stage stage;
 
-		batch = new SpriteBatch();
-		texture = new Texture("lyzeidle.png");
+    @Override
+    protected void create() {
+        font = new BitmapFont();
+        labelStyle = setupFont(Color.WHITE);
 
-		viewport = new FitViewport(500, 500);
+        setupStage();
+    }
 
-		world = new World(new Vector2(0, 0), true);
-		box2DDebugRenderer = new Box2DDebugRenderer();
+    @Override
+    public void show() {
+        super.show();
 
-		rayHandler = new RayHandler(world);
-		rayHandler.setCulling(true);
+        Gdx.input.setInputProcessor(stage);
+    }
 
-		var bodyDef = new BodyDef();
-		bodyDef.type = BodyDef.BodyType.StaticBody;
-		bodyDef.position.set(0, 300);
-		var body = world.createBody(bodyDef);
-		var shape = new PolygonShape();
-		shape.setAsBox(10000, 20);
-		body.createFixture(shape, 0.0f);
-	}
+    private void setupStage() {
+        var screenManager = ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager();
 
-	@Override
-	public void show() {
-		super.show();
+        stage = new Stage(new FitViewport(1920, 1080));
 
-		System.out.println("Show");
-		rayHandler.removeAll();
-		var light = new PointLight(rayHandler, 500, new Color(
-				MathUtils.random(),
-				MathUtils.random(),
-				MathUtils.random(),
-				1), 500, 250, 200);
-		light.setSoft(false);
-	}
+        var root = new Table();
+        root.setFillParent(true);
 
-	@Override
-	public void render(float delta) {
-		ScreenUtils.clear(Color.BLACK);
+        root.add(new Label("Fish Off Sloth", labelStyle)).padBottom(24).row();
+        root.add(new Label("Select mode", labelStyle)).row();
 
-		viewport.apply();
+        var inner = new Table();
+        root.add(inner);
 
-		world.step(delta, 6, 2);
+        for (PlayerType value : PlayerType.values()) {
+            var table = new Table();
+            var image = new ImageButton(new TextureRegionDrawable(Statics.mainAtlas.findRegion(value.getImagePath(), value.getIndex())));
+            image.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    screenManager.pushScreen(GameScreen.class.getName(), BlendingTransition.class.getName(), value);
+                }
+            });
+            table.add(image).row();
+            var text = new Label(value.toString(), labelStyle);
+            text.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    screenManager.pushScreen(GameScreen.class.getName(), BlendingTransition.class.getName(), value);
+                }
+            });
+            table.add(text);
+            inner.add(table);
+        }
 
-		/*
-		batch.setProjectionMatrix(viewport.getCamera().combined);
-		batch.begin();
-		batch.draw(texture, 20, 20);
-		batch.end();
-		 */
+        stage.addActor(root);
+    }
 
-		rayHandler.setCombinedMatrix(((OrthographicCamera) viewport.getCamera()));
-		rayHandler.updateAndRender();
+    @Override
+    public void render(float delta) {
+        ScreenUtils.clear(Color.TEAL);
 
-		box2DDebugRenderer.render(world, viewport.getCamera().combined);
+        stage.getViewport().apply();
 
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
-			System.out.println("HI");
-			((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(EmptyScreen.class.getName(), HorizontalSlicingTransition.class.getName());
-		}
-	}
+        stage.act(delta);
+        stage.draw();
+    }
 
-	@Override
-	public void resize(int width, int height) {
-		viewport.update(width, height, true);
-		rayHandler.resizeFBO((int) Math.ceil(width / 2f), (int) Math.ceil(height / 2f));
-		rayHandler.useCustomViewport(viewport.getScreenX(), viewport.getScreenY(), viewport.getScreenWidth(), viewport.getScreenHeight());
-	}
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
+
+    private Label.LabelStyle setupFont(Color color) {
+        var style = new Label.LabelStyle();
+        style.font = font;
+        style.font.setUseIntegerPositions(true);
+        style.fontColor = color;
+
+        return style;
+    }
 }

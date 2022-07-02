@@ -7,8 +7,8 @@ import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.level.entities.data.BulletData;
 
 public class LyzePlayer extends Player {
-    public LyzePlayer(Level level) {
-        super(true, BulletData.builder()
+    public LyzePlayer(Level level, boolean firstPlayer) {
+        super(firstPlayer, BulletData.builder()
                 .animation(new Animation<>(0.2f, Statics.mainAtlas.findRegions("players/lyze/bullet"), Animation.PlayMode.LOOP))
                 .width(180).height(80)
                 .lightColor(new Color(1, 1, 1, 0.4f))

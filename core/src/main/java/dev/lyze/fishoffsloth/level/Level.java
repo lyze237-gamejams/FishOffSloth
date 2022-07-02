@@ -18,6 +18,7 @@ import com.gempukku.libgdx.lib.camera2d.focus.FitAllCameraFocus;
 import dev.lyze.fishoffsloth.Statics;
 import dev.lyze.fishoffsloth.level.entities.Entity;
 import dev.lyze.fishoffsloth.level.entities.EntityPositionProvider;
+import dev.lyze.fishoffsloth.level.players.PlayerType;
 import dev.lyze.fishoffsloth.level.players.Players;
 import dev.lyze.fishoffsloth.map.Map;
 import dev.lyze.fishoffsloth.utils.PixmapUtils;
@@ -45,10 +46,10 @@ public class Level {
 
     private FocusCameraController cameraController;
 
-    public Level(boolean players, TiledMap map) {
+    public Level(PlayerType playerType, TiledMap map) {
         this.map = new Map(this, map);
 
-        this.players = new Players(players, this);
+        this.players = new Players(playerType, this);
 
         drawer.setDefaultLineWidth(4);
     }

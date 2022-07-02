@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.ScreenUtils;
 import dev.lyze.fishoffsloth.gamepads.VirtualGamepadGroup;
 import dev.lyze.fishoffsloth.level.Level;
+import dev.lyze.fishoffsloth.level.players.PlayerType;
 import dev.lyze.fishoffsloth.utils.ManagedScreenAdapter;
 import dev.lyze.fishoffsloth.utils.UpdateRenderLoop;
 import lombok.CustomLog;
@@ -31,11 +32,11 @@ public class GameScreen extends ManagedScreenAdapter {
 
         gamepads.clear();
 
-        var multiplayer = false;
+        var playerType = PlayerType.LYZE;
         if (pushParams != null)
-            multiplayer = (boolean) pushParams[0];
+            playerType = (PlayerType) pushParams[0];
 
-        level = new Level(multiplayer, new TmxMapLoader().load("maps/DevMap.tmx"));
+        level = new Level(playerType, new TmxMapLoader().load("maps/DevMap.tmx"));
         level.initialize();
         loop = new UpdateRenderLoop(this::update, this::render);
 

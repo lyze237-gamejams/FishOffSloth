@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.ScreenUtils;
 import de.eskalon.commons.core.ManagedGame;
 import de.eskalon.commons.screen.transition.impl.BlendingTransition;
-import dev.lyze.fishoffsloth.screens.MainMenuScreen;
 import dev.lyze.fishoffsloth.utils.ManagedScreenAdapter;
 
 public class EmptyScreen extends ManagedScreenAdapter  {
@@ -20,7 +19,7 @@ public class EmptyScreen extends ManagedScreenAdapter  {
         ScreenUtils.clear(Color.TEAL);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
-            ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(MainMenuScreen.class.getName(), BlendingTransition.class.getName());
+            ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(TestScreen.class.getName(), BlendingTransition.class.getName());
         }
     }
 

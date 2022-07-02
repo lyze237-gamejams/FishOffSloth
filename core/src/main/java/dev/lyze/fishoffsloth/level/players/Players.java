@@ -16,12 +16,21 @@ public class Players {
     private final Level level;
 
 
-    public Players(boolean multiplayer, Level level) {
+    public Players(PlayerType playerType, Level level) {
         this.level = level;
 
-        this.players.add(player1 = new LyzePlayer(level));
-        if (multiplayer)
-            this.players.add(player2 = new SunnyPlayer(level));
+        switch (playerType) {
+            case LYZE:
+                this.players.add(player1 = new LyzePlayer(level, true));
+                break;
+            case SUNNY:
+                this.players.add(player1 = new SunnyPlayer(level, true));
+                break;
+            case BOTH:
+                this.players.add(player1 = new LyzePlayer(level, true));
+                this.players.add(player2 = new SunnyPlayer(level, false));
+                break;
+        }
 
         this.players.forEach(p -> p.addToWorld(level.getEntityWorld().getWorld()));
 
