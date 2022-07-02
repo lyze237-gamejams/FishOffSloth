@@ -201,7 +201,7 @@
  </objectgroup>
  <objectgroup id="5" name="Events">
   <object id="19" gid="17" x="75" y="2700" width="75" height="75"/>
-  <object id="21" gid="18" x="12600" y="2250" width="75" height="75"/>
+  <object id="21" gid="18" x="225" y="2700" width="75" height="75"/>
   <object id="129" gid="25" x="2850" y="2025" width="75" height="75"/>
   <object id="130" gid="25" x="3675" y="1800" width="75" height="75"/>
   <object id="222" gid="25" x="4350" y="1725" width="75" height="75"/>
