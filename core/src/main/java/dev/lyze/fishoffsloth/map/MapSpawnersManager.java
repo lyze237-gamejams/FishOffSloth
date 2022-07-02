@@ -14,7 +14,7 @@ public class MapSpawnersManager {
     private final Level level;
     private final Map map;
 
-    private final Array<MapSpawner<?>> spawners = new Array<>();
+    private final Array<MapSpawner<?>> spawners = new Array<>(MapSpawner.class);
 
     public MapSpawnersManager(Level level, Map map) {
         this.level = level;

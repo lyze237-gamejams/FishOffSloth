@@ -1,12 +1,11 @@
 package dev.lyze.fishoffsloth.gamepads;
 
+import com.badlogic.gdx.utils.Array;
 import dev.lyze.fishoffsloth.level.players.Player;
 import lombok.Getter;
 
-import java.util.ArrayList;
-
 public class VirtualGamepadGroup {
-    private ArrayList<VirtualGamepad> gamepads = new ArrayList<>();
+    private Array<VirtualGamepad> gamepads = new Array<>(VirtualGamepad.class);
 
     @Getter protected float leftPressed;
     @Getter protected float rightPressed;

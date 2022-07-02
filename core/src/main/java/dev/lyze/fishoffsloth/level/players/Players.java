@@ -9,7 +9,7 @@ import lombok.Getter;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Players {
-    @Getter private final Array<Player> players = new Array<>();
+    @Getter private final Array<Player> players = new Array<>(Player.class);
 
     @Getter private Player player1, player2;
 

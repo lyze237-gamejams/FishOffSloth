@@ -5,44 +5,30 @@ import com.badlogic.gdx.utils.Array;
 import dev.lyze.fishoffsloth.level.entities.Entity;
 
 public class LightWorldEntitySyncer {
-    private final Array<Entry> entries = new Array<>();
+    private final Array<LightWorldEntry> entries = new Array<>(LightWorldEntry.class);
 
     public LightWorldEntitySyncer() {
 
     }
 
     public void addEntity(Entity entity, Light light, float offsetX, float offsetY) {
-        entries.add(new Entry(entity, light, offsetX, offsetY));
+        entries.add(new LightWorldEntry(entity, light, offsetX, offsetY));
     }
 
     public void update(float delta) {
-        entries.forEach(e -> e.light.setPosition(e.entity.getPosition().x + e.offsetX, e.entity.getPosition().y + e.offsetY));
+        entries.forEach(e -> e.getLight().setPosition(e.getEntity().getPosition().x + e.getOffsetX(), e.getEntity().getPosition().y + e.getOffsetY()));
     }
 
     public void removeEntity(Entity entity) {
-        Array.ArrayIterator<Entry> iterator = entries.iterator();
+        Array.ArrayIterator<LightWorldEntry> iterator = entries.iterator();
 
         while (iterator.hasNext()) {
-            Entry entry = iterator.next();
-            if (entry.entity == entity) {
+            LightWorldEntry LightWorldEntry = iterator.next();
+            if (LightWorldEntry.getEntity() == entity) {
                 iterator.remove();
-                entry.light.remove(true);
+                LightWorldEntry.getLight().remove(true);
                 return;
             }
-        }
-    }
-
-    private static class Entry {
-        private final Entity entity;
-        private final Light light;
-        private final float offsetX;
-        private final float offsetY;
-
-        public Entry(Entity entity, Light light, float offsetX, float offsetY) {
-            this.entity = entity;
-            this.light = light;
-            this.offsetX = offsetX;
-            this.offsetY = offsetY;
         }
     }
 }

@@ -3,22 +3,21 @@ package dev.lyze.fishoffsloth.level;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.dongbat.jbump.World;
 import dev.lyze.fishoffsloth.level.entities.Entity;
 import lombok.Getter;
 import lombok.var;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-import java.util.ArrayList;
-
 public class EntityWorld {
     @Getter
     private final World<Entity> world = new World<>(400);
 
     @Getter
-    private final ArrayList<Entity> entities = new ArrayList<>();
-    private final ArrayList<Entity> entitiesToAdd = new ArrayList<>();
-    private final ArrayList<Entity> entitiesToRemove = new ArrayList<>();
+    private final Array<Entity> entities = new Array<>(Entity.class);
+    private final Array<Entity> entitiesToAdd = new Array<>(Entity.class);
+    private final Array<Entity> entitiesToRemove = new Array<>(Entity.class);
 
     public EntityWorld() {
 
@@ -40,7 +39,7 @@ public class EntityWorld {
     public void update(float delta) {
         entities.forEach(e -> e.update(this, delta));
 
-        if (entitiesToAdd.size() > 0) {
+        if (entitiesToAdd.size > 0) {
             entities.addAll(entitiesToAdd);
             entitiesToAdd.clear();
         }
@@ -48,7 +47,7 @@ public class EntityWorld {
         for (var e : entitiesToRemove) {
             if (world.hasItem(e.getItem())) {
                 world.remove(e.getItem());
-                entities.remove(e);
+                entities.removeValue(e, true);
             }
         }
         entitiesToRemove.clear();
