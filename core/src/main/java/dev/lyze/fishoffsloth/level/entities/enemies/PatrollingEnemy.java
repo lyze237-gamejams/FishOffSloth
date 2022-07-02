@@ -1,23 +1,40 @@
 package dev.lyze.fishoffsloth.level.entities.enemies;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.MathUtils;
 import com.dongbat.jbump.CollisionFilter;
 import dev.lyze.fishoffsloth.Statics;
 import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
 import dev.lyze.fishoffsloth.level.collisionFilters.PatrollingEnemyCollisionFilter;
-import dev.lyze.fishoffsloth.level.entities.GravityEntity;
+import dev.lyze.fishoffsloth.level.entities.ShooterEntity;
+import dev.lyze.fishoffsloth.level.entities.data.BulletData;
 import dev.lyze.fishoffsloth.level.entities.tiles.PatrolDirectionChangeTile;
 import dev.lyze.fishoffsloth.utils.Direction;
 import dev.lyze.fishoffsloth.utils.Sloth;
 import lombok.var;
 
-public class PatrollingEnemy extends GravityEntity {
+public class PatrollingEnemy extends ShooterEntity {
     private Direction direction;
 
+    private float shootyTimer;
+
     public PatrollingEnemy(float x, float y, Direction direction, Sloth sloth, Level level) {
-        super(x, y, 75, 200, level, PatrollingEnemyCollisionFilter.instance);
+        super(x, y, 75, 200, BulletData.builder()
+                .animation(new Animation<>(0.2f, Statics.mainAtlas.findRegions("enemies/bullet"), Animation.PlayMode.LOOP))
+                .width(40).height(20)
+                .lightColor(new Color(1, 1, 1, 0.4f))
+                .offsetX(150).offsetY(87)
+                .animationOffsetX(100)
+                .travelDistance(900)
+                .enemy(true)
+                .damage(1)
+                .timeBetweenShots(MathUtils.random(2000, 3000))
+                .lightDistance(50)
+                .lightOffsetX(-5).lightOffsetY(10)
+                .build(), level, PatrollingEnemyCollisionFilter.instance);
 
         setDoDeathAnimation(true);
         
@@ -38,6 +55,8 @@ public class PatrollingEnemy extends GravityEntity {
 
         setAnimationXOffset(-20);
         setAnimationYOffset(-10f);
+
+        wantsToShoot = true;
     }
 
     @Override

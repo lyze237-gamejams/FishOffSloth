@@ -15,7 +15,7 @@ public class SunnyPlayer extends Player {
                 .offsetX(10).offsetY(65)
                 .travelDistance(700)
                 .damage(1)
-                .timeBetweenShots(100)
+                .timeBetweenShots(175)
                 .lightDistance(50)
                 .lightOffsetX(0).lightOffsetY(30)
                 .build(), level);
