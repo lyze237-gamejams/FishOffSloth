@@ -48,6 +48,8 @@ public class GameScreen extends ManagedScreenAdapter {
         level.getPlayers().getPlayers().forEach(p -> gamepads.add(new VirtualGamepadGroup(p, gamepads.size())));
 
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        restarting = finishing = false;
     }
 
     @Override

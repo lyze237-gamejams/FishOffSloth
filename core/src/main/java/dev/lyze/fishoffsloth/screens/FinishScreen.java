@@ -57,6 +57,8 @@ public class FinishScreen extends ManagedScreenAdapter {
             coins = (int) pushParams[0];
 
         setupStage();
+
+        sceneSwitch = false;
     }
 
     private void setupStage() {
@@ -84,8 +86,10 @@ public class FinishScreen extends ManagedScreenAdapter {
     public void render(float delta) {
         ScreenUtils.clear(Color.BLACK);
 
-        if ((ignoreInput -= delta) < 0 && !sceneSwitch && (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)))
+        if ((ignoreInput -= delta) < 0 && !sceneSwitch && (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY))) {
             ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(MainMenuScreen.class.getName(), SlidingOutTransition.class.getName());
+            sceneSwitch = true;
+        }
 
         bgStage.getViewport().apply();
         bgStage.act();

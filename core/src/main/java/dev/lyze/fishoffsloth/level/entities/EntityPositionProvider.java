@@ -14,14 +14,13 @@ public class EntityPositionProvider implements PositionProvider {
 
     @Override
     public Vector2 getPosition(Vector2 position) {
-        var player = entity;
-        if (entity.isDead()) {
-            for (var p : entity.getLevel().getPlayers().getPlayers()) {
-                if (!p.isDead())
-                    player = p;
-            }
-        }
+        if (!entity.isDead())
+            return position.set(entity.getPosition());
 
-        return position.set(player.getPosition().x, player.getPosition().y);
+        for (var p : entity.getLevel().getPlayers().getPlayers())
+            if (!p.isDead())
+                return position.set(p.getPosition());
+
+        return position;
     }
 }
