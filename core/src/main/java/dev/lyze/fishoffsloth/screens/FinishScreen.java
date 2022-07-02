@@ -84,7 +84,7 @@ public class FinishScreen extends ManagedScreenAdapter {
     public void render(float delta) {
         ScreenUtils.clear(Color.BLACK);
 
-        if ((ignoreInput -= delta) < 0 && !sceneSwitch && (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)))
+        if ((ignoreInput -= delta) < 0 && !sceneSwitch && (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)))
             ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(MainMenuScreen.class.getName(), SlidingOutTransition.class.getName());
 
         bgStage.getViewport().apply();
