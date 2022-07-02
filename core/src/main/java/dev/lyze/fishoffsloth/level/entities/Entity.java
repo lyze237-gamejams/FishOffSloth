@@ -11,7 +11,7 @@ import lombok.Getter;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Entity {
-    protected final Level level;
+    @Getter protected final Level level;
 
     @Getter
     protected Vector2 position;
