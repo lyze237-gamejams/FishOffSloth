@@ -13,6 +13,7 @@ import de.eskalon.commons.screen.transition.impl.SlidingDirection;
 import de.eskalon.commons.screen.transition.impl.SlidingOutTransition;
 import dev.lyze.fishoffsloth.screens.GameScreen;
 import dev.lyze.fishoffsloth.screens.MainMenuScreen;
+import dev.lyze.fishoffsloth.screens.SplashScreen;
 import lombok.CustomLog;
 
 @CustomLog
@@ -26,6 +27,9 @@ public class Main extends ManagedGame<ManagedScreen, ScreenTransition> {
 		log.logInfo("Hello World!");
 
 		setupScreens();
+
+		Statics.music.setVolume(0.3f);
+		Statics.music.play();
 	}
 
 	@Override
@@ -39,6 +43,7 @@ public class Main extends ManagedGame<ManagedScreen, ScreenTransition> {
 	private void setupScreens() {
 		batch = new SpriteBatch();
 
+		screenManager.addScreen(SplashScreen.class.getName(), new SplashScreen());
 		screenManager.addScreen(MainMenuScreen.class.getName(), new MainMenuScreen());
 		screenManager.addScreen(GameScreen.class.getName(), new GameScreen());
 
@@ -46,7 +51,7 @@ public class Main extends ManagedGame<ManagedScreen, ScreenTransition> {
 		screenManager.addScreenTransition(SlidingOutTransition.class.getName(), new SlidingOutTransition(batch, SlidingDirection.DOWN, 0.35F));
 		screenManager.addScreenTransition(HorizontalSlicingTransition.class.getName(), new HorizontalSlicingTransition(batch, 5, 1F, Interpolation.exp5In));
 
-		screenManager.pushScreen(MainMenuScreen.class.getName(), null);
+		screenManager.pushScreen(SplashScreen.class.getName(), null);
 	}
 
 	@Override
