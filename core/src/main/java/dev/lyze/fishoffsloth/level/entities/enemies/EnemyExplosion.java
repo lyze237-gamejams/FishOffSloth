@@ -79,6 +79,7 @@ public class EnemyExplosion extends GravityEntity {
         if (groundTouched) {
             Statics.playSound(Statics.coin1, Statics.coin2);
             level.removeEntity(this);
+            level.setCoins(level.getCoins() + 1);
         }
     }
 }

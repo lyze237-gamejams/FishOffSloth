@@ -34,6 +34,8 @@ public class CoinTile extends Tile {
     private void despawn() {
         Statics.playSound(Statics.coinTotalWin1, Statics.coinTotalWin2);
 
+        level.setCoins(level.getCoins() + 10);
+
         for (int i = 0; i < (Gdx.app.getType() == Application.ApplicationType.WebGL ? 3 : 25); i++)
             level.getEntityWorld().addEntity(new EnemyExplosion(position.x + width / 2f, position.y + height / 2f, level));
 

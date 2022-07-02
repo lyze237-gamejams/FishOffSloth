@@ -25,6 +25,7 @@ import dev.lyze.fishoffsloth.screens.GameScreen;
 import dev.lyze.fishoffsloth.utils.PixmapUtils;
 import lombok.CustomLog;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.var;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -47,6 +48,8 @@ public class Level {
 
     @Getter private final Players players;
     @Getter private final GameScreen gameScreen;
+
+    @Getter @Setter private int coins;
 
     private FocusCameraController cameraController;
 

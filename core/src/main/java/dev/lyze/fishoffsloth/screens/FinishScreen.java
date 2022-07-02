@@ -3,13 +3,13 @@ package dev.lyze.fishoffsloth.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import de.eskalon.commons.core.ManagedGame;
@@ -22,12 +22,14 @@ public class FinishScreen extends ManagedScreenAdapter {
     private Stage stage;
     private Stage bgStage;
 
-    private Timer.Task timerTask;
+    private float ignoreInput = 3f;
+    private boolean sceneSwitch;
+
+    private int coins;
 
     @Override
     protected void create() {
         stage = new Stage(new FitViewport(1920, 1080));
-        setupStage();
         setupBgStage();
     }
 
@@ -51,12 +53,10 @@ public class FinishScreen extends ManagedScreenAdapter {
     public void show() {
         super.show();
 
-        timerTask = new Timer().scheduleTask(new Timer.Task() {
-            @Override
-            public void run() {
-                ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(MainMenuScreen.class.getName(), SlidingOutTransition.class.getName());
-            }
-        }, 3f);
+        if (pushParams != null)
+            coins = (int) pushParams[0];
+
+        setupStage();
     }
 
     private void setupStage() {
@@ -64,23 +64,28 @@ public class FinishScreen extends ManagedScreenAdapter {
         root.defaults().pad(100);
         root.setFillParent(true);
 
-        var finish = new Image(Statics.mainAtlas.findRegion("finish"));
+        root.add(new Image(Statics.mainAtlas.findRegion("finish"))).row();
 
-        finish.addAction(Actions.scaleTo(1.1f, 1.1f, 3f));
-
-        root.add(finish);
+        root.add(new Label("Score: " + coins, setupFont(Color.WHITE)));
 
         stage.addActor(root);
+    }
+
+    private Label.LabelStyle setupFont(Color color) {
+        var style = new Label.LabelStyle();
+        style.font = new BitmapFont(Gdx.files.internal("fonts/LiberationSans-Regular.fnt"));
+        style.font.setUseIntegerPositions(true);
+        style.fontColor = color;
+
+        return style;
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(Color.BLACK);
 
-        if ((Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) && timerTask.isScheduled()) {
-            timerTask.cancel();
+        if ((ignoreInput -= delta) < 0 && !sceneSwitch && (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)))
             ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(MainMenuScreen.class.getName(), SlidingOutTransition.class.getName());
-        }
 
         bgStage.getViewport().apply();
         bgStage.act();

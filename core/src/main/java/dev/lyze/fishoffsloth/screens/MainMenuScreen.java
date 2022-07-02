@@ -32,7 +32,6 @@ public class MainMenuScreen extends ManagedScreenAdapter  {
     @Override
     protected void create() {
         font = new BitmapFont();
-        labelStyle = setupFont(Color.WHITE);
 
         setupStage();
         setupBgStage();
@@ -115,12 +114,4 @@ public class MainMenuScreen extends ManagedScreenAdapter  {
         stage.getViewport().update(width, height, true);
     }
 
-    private Label.LabelStyle setupFont(Color color) {
-        var style = new Label.LabelStyle();
-        style.font = font;
-        style.font.setUseIntegerPositions(true);
-        style.fontColor = color;
-
-        return style;
-    }
 }

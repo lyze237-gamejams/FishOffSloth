@@ -70,7 +70,7 @@ public class GameScreen extends ManagedScreenAdapter {
 
         if (finishing) {
             if ((screenTimer -= delta) < 0) {
-                ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(FinishScreen.class.getName(), HorizontalSlicingTransition.class.getName());
+                ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(FinishScreen.class.getName(), HorizontalSlicingTransition.class.getName(), level.getCoins());
                 screenTimer = 10000;
             }
         }
