@@ -31,4 +31,11 @@ public class SunnyPlayer extends Player {
         setAnimationXOffset(-60f);
         setAnimationYOffset(-10f);
     }
+
+    @Override
+    protected void shoot() {
+        super.shoot();
+
+        Statics.playSound(Statics.shoot);
+    }
 }

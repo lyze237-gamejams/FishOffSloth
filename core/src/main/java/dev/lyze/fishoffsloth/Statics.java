@@ -21,6 +21,9 @@ public class Statics {
     public static Sound jump3 = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.ogg"));
 
     public static Sound hit = Gdx.audio.newSound(Gdx.files.internal("sounds/hitHurt.ogg"));
+    public static Sound shoot = Gdx.audio.newSound(Gdx.files.internal("sounds/Hit_Hurt.wav"));
+    public static Sound shoot2 = Gdx.audio.newSound(Gdx.files.internal("sounds/Hit_Hurt20.wav"));
+    public static Sound shoot3 = Gdx.audio.newSound(Gdx.files.internal("sounds/Hit_Hurt37.wav"));
 
     public static void playSound(Sound... sound) {
         sound[MathUtils.random(sound.length - 1)].play(0.4f);

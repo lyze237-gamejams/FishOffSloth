@@ -52,8 +52,11 @@ public class ShooterEntity extends GravityEntity {
         if (System.currentTimeMillis() - lastShot < bulletData.getTimeBetweenShots())
             return;
 
-        level.getEntityWorld().addEntity(new BulletEntity(position.x + width / 2f + bulletData.getOffsetX() * (isFacingRight ? 1 : -1) + (isFacingRight ? 0 : -bulletData.getWidth()), position.y + bulletData.getOffsetY(), isFacingRight ? Direction.Right : Direction.Left, bulletData, level));
+        shoot();
+    }
 
+    protected void shoot() {
+        level.getEntityWorld().addEntity(new BulletEntity(position.x + width / 2f + bulletData.getOffsetX() * (isFacingRight ? 1 : -1) + (isFacingRight ? 0 : -bulletData.getWidth()), position.y + bulletData.getOffsetY(), isFacingRight ? Direction.Right : Direction.Left, bulletData, level));
         lastShot = System.currentTimeMillis();
     }
 

@@ -92,6 +92,13 @@ public class ShootyEnemy extends ShooterEntity {
     }
 
     @Override
+    protected void shoot() {
+        super.shoot();
+
+        Statics.playSound(Statics.shoot2);
+    }
+
+    @Override
     protected void die(Direction from) {
         super.die(from);
 

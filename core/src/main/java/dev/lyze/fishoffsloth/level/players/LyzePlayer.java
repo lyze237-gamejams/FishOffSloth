@@ -32,4 +32,11 @@ public class LyzePlayer extends Player {
         setAnimationXOffset(-75f);
         setAnimationYOffset(-10f);
     }
+
+    @Override
+    protected void shoot() {
+        super.shoot();
+
+        Statics.playSound(Statics.shoot3);
+    }
 }

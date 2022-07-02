@@ -57,8 +57,6 @@ public class PatrollingEnemy extends ShooterEntity {
 
         setAnimationXOffset(-20);
         setAnimationYOffset(-10f);
-
-        wantsToShoot = true;
     }
 
     @Override
@@ -78,7 +76,21 @@ public class PatrollingEnemy extends ShooterEntity {
                 break;
         }
 
+        checkShoot();
+
         super.update(world, delta);
+    }
+
+    private void checkShoot() {
+        float closestPlayerDistance = Float.MAX_VALUE;
+        for (var player : level.getPlayers().getPlayers()) {
+            var distance = player.getPosition().dst(position);
+
+            if (distance < closestPlayerDistance)
+                closestPlayerDistance = distance;
+        }
+
+        wantsToShoot = closestPlayerDistance < getBulletData().getTravelDistance() * 2;
     }
 
     private PatrolDirectionChangeTile getPatrolBlockOnMe(EntityWorld world) {
@@ -101,6 +113,13 @@ public class PatrollingEnemy extends ShooterEntity {
         super.damage(amount, from);
 
         Statics.playSound(Statics.hit);
+    }
+
+    @Override
+    protected void shoot() {
+        super.shoot();
+
+        Statics.playSound(Statics.shoot2);
     }
 
     @Override
