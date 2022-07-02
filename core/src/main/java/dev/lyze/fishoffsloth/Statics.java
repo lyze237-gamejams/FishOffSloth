@@ -16,6 +16,12 @@ public class Statics {
     public static Sound coinTotalWin1 = Gdx.audio.newSound(Gdx.files.internal("sounds/Coin Total Win.mp3"));
     public static Sound coinTotalWin2 = Gdx.audio.newSound(Gdx.files.internal("sounds/Coin Total Win 2.mp3"));
 
+    public static Sound jump1 = Gdx.audio.newSound(Gdx.files.internal("sounds/Jump 1.mp3"));
+    public static Sound jump2 = Gdx.audio.newSound(Gdx.files.internal("sounds/Jump 3.mp3"));
+    public static Sound jump3 = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.ogg"));
+
+    public static Sound hit = Gdx.audio.newSound(Gdx.files.internal("sounds/hitHurt.ogg"));
+
     public static void playSound(Sound... sound) {
         sound[MathUtils.random(sound.length - 1)].play(0.4f);
     }

@@ -29,6 +29,7 @@ public class Main extends ManagedGame<ManagedScreen, ScreenTransition> {
 		setupScreens();
 
 		Statics.music.setVolume(0.3f);
+		Statics.music.setLooping(true);
 		Statics.music.play();
 	}
 

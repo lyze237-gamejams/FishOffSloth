@@ -97,6 +97,13 @@ public class PatrollingEnemy extends ShooterEntity {
     }
 
     @Override
+    public void damage(int amount, Direction from) {
+        super.damage(amount, from);
+
+        Statics.playSound(Statics.hit);
+    }
+
+    @Override
     protected void die(Direction from) {
         super.die(from);
 

@@ -7,9 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import de.eskalon.commons.core.ManagedGame;
 import de.eskalon.commons.screen.transition.impl.SlidingOutTransition;
 import dev.lyze.fishoffsloth.Statics;
@@ -18,6 +20,7 @@ import lombok.var;
 
 public class SplashScreen extends ManagedScreenAdapter {
     private Stage stage;
+    private Stage bgStage;
 
     private Timer.Task timerTask;
 
@@ -25,7 +28,24 @@ public class SplashScreen extends ManagedScreenAdapter {
     protected void create() {
         stage = new Stage(new FitViewport(1920, 1080));
         setupStage();
+        setupBgStage();
     }
+
+
+    private void setupBgStage() {
+        bgStage = new Stage(new ScreenViewport());
+
+        var root = new Table();
+        root.setFillParent(true);
+
+        var mainMenuBg = new Image(Statics.mainAtlas.findRegion("mainMenuBg"));
+        mainMenuBg.setScaling(Scaling.fill);
+
+        root.add(mainMenuBg).grow();
+
+        bgStage.addActor(root);
+    }
+
 
     @Override
     public void show() {
@@ -60,13 +80,16 @@ public class SplashScreen extends ManagedScreenAdapter {
     public void render(float delta) {
         ScreenUtils.clear(Color.BLACK);
 
-        stage.getViewport().apply();
-
         if ((Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) && timerTask.isScheduled()) {
             timerTask.cancel();
             ((ManagedGame) Gdx.app.getApplicationListener()).getScreenManager().pushScreen(MainMenuScreen.class.getName(), SlidingOutTransition.class.getName());
         }
 
+        bgStage.getViewport().apply();
+        bgStage.act();
+        bgStage.draw();
+
+        stage.getViewport().apply();
         stage.act();
         stage.draw();
     }
@@ -74,5 +97,6 @@ public class SplashScreen extends ManagedScreenAdapter {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
+        bgStage.getViewport().update(width, height, true);
     }
 }

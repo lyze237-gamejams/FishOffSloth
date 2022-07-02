@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.jbump.Collision;
+import dev.lyze.fishoffsloth.Statics;
 import dev.lyze.fishoffsloth.gamepads.VirtualGamepadGroup;
 import dev.lyze.fishoffsloth.level.EntityWorld;
 import dev.lyze.fishoffsloth.level.Level;
@@ -101,9 +102,25 @@ public class Player extends ShooterEntity {
     }
 
     @Override
+    protected void jump() {
+        super.jump();
+
+        Statics.playSound(Statics.jump1, Statics.jump2);
+    }
+
+    @Override
+    protected void doubleJump() {
+        super.doubleJump();
+
+        Statics.playSound(Statics.jump3);
+    }
+
+    @Override
     public void damage(int amount, Direction from) {
         if (getBlinkTime() > 0)
             return;
+
+        Statics.playSound(Statics.hit);
 
         super.damage(amount, from);
 
