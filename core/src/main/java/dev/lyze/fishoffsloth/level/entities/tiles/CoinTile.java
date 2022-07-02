@@ -1,5 +1,7 @@
 package dev.lyze.fishoffsloth.level.entities.tiles;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import dev.lyze.fishoffsloth.Statics;
@@ -32,7 +34,7 @@ public class CoinTile extends Tile {
     private void despawn() {
         Statics.playSound(Statics.coinTotalWin1, Statics.coinTotalWin2);
 
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < (Gdx.app.getType() == Application.ApplicationType.WebGL ? 3 : 25); i++)
             level.getEntityWorld().addEntity(new EnemyExplosion(position.x + width / 2f, position.y + height / 2f, level));
 
         level.removeEntity(this);

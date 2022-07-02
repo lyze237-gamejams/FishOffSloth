@@ -1,5 +1,7 @@
 package dev.lyze.fishoffsloth.level.entities.enemies;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -98,7 +100,7 @@ public class PatrollingEnemy extends ShooterEntity {
     protected void die(Direction from) {
         super.die(from);
 
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < (Gdx.app.getType() == Application.ApplicationType.WebGL ? 3 : 25); i++)
             level.getEntityWorld().addEntity(new EnemyExplosion(position.x + width / 2f, position.y + height / 2f, level));
     }
 }

@@ -13,6 +13,7 @@ import dev.lyze.fishoffsloth.level.players.Player;
 
 public class EnemyExplosion extends GravityEntity {
     private float invincibilityTimer = 0.1f;
+    private float despawnTimer = 7.5f;
     private boolean groundTouched;
 
     public EnemyExplosion(float x, float y, Level level) {
@@ -24,9 +25,11 @@ public class EnemyExplosion extends GravityEntity {
         setFall(new Animation<>(0.2f, Statics.mainAtlas.findRegions("carlcoinsmall"), Animation.PlayMode.LOOP));
 
         if (MathUtils.randomBoolean())
-            wantsToMoveRight = MathUtils.random(0.6f, 1f);
+            wantsToMoveRight = MathUtils.random(0.2f, 0.6f);
         else
-            wantsToMoveLeft = MathUtils.random(0.6f, 1f);
+            wantsToMoveLeft = MathUtils.random(0.2f, 0.6f);
+
+        despawnTimer += MathUtils.random(0f, 1f);
 
         setJumpForce(2f);
         setSpeed(2f);
@@ -40,6 +43,10 @@ public class EnemyExplosion extends GravityEntity {
     @Override
     public void update(EntityWorld world, float delta) {
         invincibilityTimer -= delta;
+        despawnTimer -= delta;
+
+        if (despawnTimer < 0)
+            level.removeEntity(this);
 
         setJumpForce(getJumpForce() - 2f * delta);
 
