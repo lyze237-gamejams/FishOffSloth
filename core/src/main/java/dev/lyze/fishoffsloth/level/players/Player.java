@@ -26,6 +26,8 @@ public class Player extends ShooterEntity {
     private float lastPositionTimer;
     private final float lastPositionMaxTimer = 0.5f;
 
+    @Getter @Setter private String heartPath;
+
     public Player(boolean firstPlayer, BulletData data, Level level) {
         super(0, 0, 75, 200, data, level, PlayerCollisionFilter.instance);
 
@@ -104,5 +106,7 @@ public class Player extends ShooterEntity {
             return;
 
         super.damage(amount, from);
+
+        level.getHud().updateHud();
     }
 }

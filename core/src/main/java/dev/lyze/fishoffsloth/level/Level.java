@@ -39,6 +39,8 @@ public class Level {
     @Getter private final EntityWorld entityWorld = new EntityWorld();
     @Getter private final LightWorld lightWorld = new LightWorld();
 
+    @Getter private final Hud hud;
+
     @Getter private final Map map;
     @Getter private final Background background = new Background();
 
@@ -47,6 +49,8 @@ public class Level {
     private FocusCameraController cameraController;
 
     public Level(PlayerType playerType, TiledMap map) {
+        this.hud = new Hud(this);
+
         this.map = new Map(this, map);
 
         this.players = new Players(playerType, this);
@@ -63,6 +67,8 @@ public class Level {
                 new LockedToCameraConstraint(new Vector2(0.5f, 0.5f)),
                 new FitAllCameraConstraint(new Rectangle(0.2f, 0.2f, 0.6f, 0.6f), cameraFoci),
                 new MinimumViewportCameraConstraint(1020, 1080));
+
+        hud.updateHud();
     }
 
     public void update(float delta) {
@@ -70,6 +76,7 @@ public class Level {
         entityWorld.update(delta);
         lightWorld.update(delta);
         cameraController.update(delta);
+        hud.update(delta);
     }
 
     public void render() {
@@ -99,6 +106,10 @@ public class Level {
 
         map.renderForegroundLayer();
 
+        hud.render();
+
+        viewport.apply();
+
         if (Statics.debug) {
             batch.setColor(Color.WHITE);
             batch.begin();
@@ -112,6 +123,7 @@ public class Level {
     public void resize(int width, int height) {
         viewport.update(width, height);
         lightWorld.resize(width, height, viewport);
+        hud.resize(width, height);
     }
 
     public void removeEntity(Entity entity) {

@@ -3,13 +3,11 @@ package dev.lyze.fishoffsloth.level.players;
 import lombok.Getter;
 
 public enum PlayerType {
-    LYZE("players/lyze/idle", 1), SUNNY("players/sunny/idle", 1), BOTH("enemies/clogg/move", 1);
+    LYZE("players/lyze/select"), SUNNY("players/sunny/select"), BOTH("enemies/clogg/move");
 
     @Getter private final String imagePath;
-    @Getter private final int index;
 
-    PlayerType(String imagePath, int index) {
+    PlayerType(String imagePath) {
         this.imagePath = imagePath;
-        this.index = index;
     }
 }
