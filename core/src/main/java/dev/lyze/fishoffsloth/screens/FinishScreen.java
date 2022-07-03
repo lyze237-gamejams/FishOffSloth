@@ -62,6 +62,8 @@ public class FinishScreen extends ManagedScreenAdapter {
     }
 
     private void setupStage() {
+        stage.clear();
+
         var root = new Table();
         root.defaults().pad(100);
         root.setFillParent(true);
