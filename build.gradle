@@ -19,7 +19,7 @@ apply from: 'utils.gradle'
 import com.badlogic.gdx.tools.texturepacker.TexturePacker
 task texturePacker {
 	doLast {
-		TexturePacker.process("${project.rootDir}/sources", "${project.rootDir}/assets/atlases", "main")
+		TexturePacker.processIfModified("${project.rootDir}/sources", "${project.rootDir}/assets/atlases", "main")
 	}
 }
 
